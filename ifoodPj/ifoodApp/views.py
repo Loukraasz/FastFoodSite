@@ -2,7 +2,6 @@ from django.forms import ValidationError
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import nameForm
-from .models import User
 
 def index(request):
     form = nameForm()
@@ -12,11 +11,8 @@ def teste(request):
     try:
         if form.is_valid():
             form.save()
-            nome = form.data["username"]
-            print(nome)
+            print("tentei")
             return render(request, "polls/teste.html")
     except ValueError or ValidationError:
         return HttpResponse("paia")
-    
-    
-    return render(request, "polls/teste.html")
+    return HttpResponse("pinto")
