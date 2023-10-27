@@ -8,11 +8,11 @@ def index(request):
     return render(request, "polls/index.html", {"form":form})
 def teste(request):
     form = nameForm(request.POST)
-    try:
-        if form.is_valid():
-            form.save()
-            print("tentei")
-            return render(request, "polls/teste.html")
-    except ValueError or ValidationError:
-        return HttpResponse("paia")
+    print("ok")
+    form.fields["username"].required = False
+    if form.is_valid():
+        print("teste")
+        form.save()
+        return HttpResponse("salvo")
+    print("hummm")
     return HttpResponse("pinto")
