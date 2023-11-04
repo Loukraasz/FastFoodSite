@@ -1,18 +1,17 @@
 from django.forms import ValidationError
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import nameForm
+from .forms import Endereco, nameForm
 
 def index(request):
     form = nameForm()
-    return render(request, "polls/index.html", {"form":form})
+    endereco = Endereco
+    return render(request, "polls/index.html", {"form":form, "endereco":endereco})
 def teste(request):
     form = nameForm(request.POST)
-    print("ok")
-    form.fields["username"].required = False
-    if form.is_valid():
-        print("teste")
+    endereco = Endereco(request.POST)
+    if form.is_valid() and endereco.is_valid():
+        endereco.save()
         form.save()
         return HttpResponse("salvo")
-    print("hummm")
     return HttpResponse("pinto")
