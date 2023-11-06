@@ -12,7 +12,7 @@ class nameForm(forms.ModelForm):
         model = User
         fields = ["username","password","email","phoneNumber"]
         required = ["username","password","email","phoneNumber"]
-class Endereco(forms.ModelForm):
+class EnderecoForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

@@ -2,6 +2,7 @@ from django.db import models
 from .validators import validate_even
 
 class Endereco(models.Model):
+    id = models.AutoField(primary_key=id)
     rua = models.CharField(max_length=200)
     numero = models.IntegerField()
     complemento = models.CharField(max_length=200)
