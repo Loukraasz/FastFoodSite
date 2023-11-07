@@ -7,10 +7,6 @@ from .models import User, Endereco as End
 def index(request):
     form = nameForm()
     endereco = EnderecoForm()
-    u = End(rua="cu", bairro="cu", cidade="cu", numero="12", complemento="cu")
-    u.save()
-    p = User(username="cu", password="cu", email="cu", phoneNumber="12", adress=u)
-    p.save()
     return render(request, "polls/index.html", {"form":form, "endereco":endereco})
 def teste(request):
     form = nameForm(request.POST)
