@@ -1,10 +1,9 @@
 from django import forms
 from .models import User, Endereco
 
-class nameForm(forms.ModelForm):
+class NameForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         for field in self.Meta.required:
             self.fields[field].required = False
         
