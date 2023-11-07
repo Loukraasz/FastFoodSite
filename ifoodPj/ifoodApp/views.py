@@ -15,7 +15,12 @@ def index(request):
 def teste(request):
     form = nameForm(request.POST)
     endereco = EnderecoForm(request.POST)
+       
     if form.is_valid() and endereco.is_valid():
-      
-       return HttpResponse("salvo")
+        e = endereco.save()
+        a = form.save(commit=False)
+        a.adress_id = e.id
+        a.save()
+        e.save()
+        return HttpResponse("salvo")
     return HttpResponse("pinto")
