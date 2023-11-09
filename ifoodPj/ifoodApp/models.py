@@ -28,6 +28,13 @@ class Pedido(models.Model):
     valor = models.FloatField()
     status = models.CharField(max_length=1, choices=status_choices)
     produto = models.ManyToManyField(Produto)
+    
+class Cart(models.Model):
+    cliente = models.OneToOneField("User", on_delete=models.SET_NULL, null=True)
+    total = models.FloatField(null=True)
+    pedidos = models.ManyToManyField("Produto")
+    
+    
 
 class User(models.Model):
     username = models.CharField(max_length=40, validators=[validate_even])
