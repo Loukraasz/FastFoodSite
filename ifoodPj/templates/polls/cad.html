@@ -1,0 +1,10 @@
+{%load static%}
+<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/teste.css'%}">
+<form action="{%url 'cad' %}" method="POST">
+    {% csrf_token %}
+    <table>
+    {{user.as_table}}
+    {{endereco.as_table}}
+    </table>
+    <input type="submit">
+</form>

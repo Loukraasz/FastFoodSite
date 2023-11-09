@@ -6,4 +6,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index, name="index"),
     path('cad/',views.cad, name="cad"),
+    path('pedido/',views.pedido, name="pedido"),
 ]
