@@ -1,0 +1,8 @@
+{%load static%}
+<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/teste.css'%}">
+<form action="{%url 'login' %}" method="POST">
+    {% csrf_token %}
+    <input name="lUsername" id="username" type="text"></input>
+    <input name="lPassword"id="password" type="password"></input>
+    <button type="submit" class="mainButton" id="lEntrar">e</button>
+</form>

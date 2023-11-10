@@ -1,5 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as loginDjango
 from .forms import EnderecoForm, NameForm
 from .models import Produto, Pedido,User, Endereco,Cart
 
@@ -55,7 +57,24 @@ def pedido(request):
     carrinho = Cart(cliente=usuario,total=total)
     carrinho.save()
     carrinho.pedidos.add(temaki_obj,pizza_obj)
-    
-    
-    
     return render(request, "polls/pedido.html")
+
+
+def login(request):
+    if request.method =="GET":
+        return render(request, "polls/login.html")
+    username_login = request.POST.get("lUsername")
+    password_login = request.POST.get("lPassword")
+    print(username_login)
+    print(password_login)
+    userLog = authenticate(username=username_login, password=password_login)
+    print(userLog)
+    if userLog:
+            loginDjango(request, userLog)
+            return HttpResponse("entrou")
+    else:
+        print("s")
+        invalid = "Usuario ou senhas invalidos"
+        invalids = {"invalid":invalid}
+        return render(request, 'polls/login.html', invalids)
+    
