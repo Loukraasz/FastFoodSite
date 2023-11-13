@@ -63,18 +63,18 @@ def pedido(request):
 def login(request):
     if request.method =="GET":
         return render(request, "polls/login.html")
-    username_login = request.POST.get("lUsername")
+    email_login = request.POST.get("lEmail")
     password_login = request.POST.get("lPassword")
-    print(username_login)
-    print(password_login)
-    userLog = authenticate(username=username_login, password=password_login)
-    print(userLog)
-    if userLog:
-            loginDjango(request, userLog)
-            return HttpResponse("entrou")
-    else:
-        print("s")
-        invalid = "Usuario ou senhas invalidos"
-        invalids = {"invalid":invalid}
-        return render(request, 'polls/login.html', invalids)
+    users_email = User.objects.filter(email=email_login).first()
+    users = User.objects.filter(username=email_login).first()
+    if users_email or users:
+        user = User.objects.get(username=email_login)
+        password_user = user.password
+        if password_user == password_login:
+            request.session['session'] = email_login
+            sessionUser = request.COOKIES.get("sessionid")
+            return HttpResponse("bala")
+        else:
+            return HttpResponse("asd")
+    return HttpResponse("paia")
     
