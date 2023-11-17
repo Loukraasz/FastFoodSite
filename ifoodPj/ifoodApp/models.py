@@ -40,6 +40,7 @@ class User(models.Model):
     username = models.CharField(max_length=40, validators=[validate_even])
     password = models.CharField(max_length=40)
     email = models.EmailField()
+    sessionId = models.CharField(max_length=300, null=True, blank=True)
     phoneNumber = models.IntegerField(null=True)
     adress = models.OneToOneField(Endereco, on_delete=models.SET_NULL, null=True)
     

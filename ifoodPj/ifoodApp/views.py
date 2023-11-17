@@ -7,7 +7,9 @@ from .models import Produto, Pedido,User, Endereco,Cart
 
 def index(request):
     if request.method == "GET":
-        
+        global sessionUser
+        request.session['session'] = "sessions"
+        sessionUser = request.COOKIES.get("sessionid")
         user = NameForm()
         endereco = EnderecoForm()
         '''
@@ -68,13 +70,18 @@ def login(request):
     users_email = User.objects.filter(email=email_login).first()
     users = User.objects.filter(username=email_login).first()
     if users_email or users:
+        
         user = User.objects.get(username=email_login)
         password_user = user.password
         if password_user == password_login:
-            request.session['session'] = email_login
-            sessionUser = request.COOKIES.get("sessionid")
-            return HttpResponse("bala")
+            global sessionUser
+            user.sessionId = sessionUser
+            user.save()
+            return render(request, "polls/platform.html")
         else:
             return HttpResponse("asd")
     return HttpResponse("paia")
-    
+
+def platform(request):
+    if request.method == "GET":
+        return render(request, "polls/platform.html")

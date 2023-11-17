@@ -8,4 +8,5 @@ urlpatterns = [
     path('cad/',views.cad, name="cad"),
     path('pedido/',views.pedido, name="pedido"),
     path('login/',views.login, name="login"),
+    path('platform/',views.platform, name="platform"),
 ]
