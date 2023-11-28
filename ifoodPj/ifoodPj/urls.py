@@ -9,4 +9,6 @@ urlpatterns = [
     path('pedido/',views.pedido, name="pedido"),
     path('login/',views.login, name="login"),
     path('platform/',views.platform, name="platform"),
+    path('pizza',views.pizza, name="pizza"),
+    path('temaki_salmao',views.temaki_salmao, name="temaki_salmao"),
 ]

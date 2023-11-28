@@ -48,17 +48,11 @@ def cad(request):
 def pedido(request):
     if request.method == "GET":
         return render(request, "polls/pedido.html")
-    usuario = User.objects.get(username="lukas")
-    pizza = Produto.objects.filter(nome="pizza").values("valor")
-    temaki = Produto.objects.filter(nome="temaki de salmao").values("valor")
-    pizza_val = pizza[0]["valor"]
-    temaki_val = temaki[0]["valor"]
-    total = temaki_val + pizza_val
-    pizza_obj = Produto.objects.get(nome="pizza")
-    temaki_obj = Produto.objects.get(nome="temaki de salmao")
-    carrinho = Cart(cliente=usuario,total=total)
-    carrinho.save()
-    carrinho.pedidos.add(temaki_obj,pizza_obj)
+    user = request.COOKIES.get("sessionid")
+    usuario = User.objects.get(sessionId=user)
+    usuario_id = usuario.id
+    cart = Cart.objects.get(cliente_id = usuario_id)
+    cart.delete()
     return render(request, "polls/pedido.html")
 
 
@@ -85,3 +79,20 @@ def login(request):
 def platform(request):
     if request.method == "GET":
         return render(request, "polls/platform.html")
+
+def pizza(request):
+    if request.method == "GET":
+        return render(request, "polls/pizza.html")
+    user = request.COOKIES.get("sessionid")
+    usuario = User.objects.get(sessionId=user)
+    pizza = Produto.objects.filter(nome="pizza").values("valor")
+    pizza_val = pizza[0]["valor"]
+    total = pizza_val
+    pizza_obj = Produto.objects.get(nome="pizza")
+    carrinho = Cart(cliente=usuario,total=total)
+    carrinho.save()
+    carrinho.pedidos.add(pizza_obj)
+    return render(request, "polls/pedido.html")
+def temaki_salmao(request):
+    if request.method == "GET":
+        return render(request, "polls/temaki_salmao.html")
