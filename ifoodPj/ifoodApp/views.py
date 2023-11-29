@@ -96,3 +96,16 @@ def pizza(request):
 def temaki_salmao(request):
     if request.method == "GET":
         return render(request, "polls/temaki_salmao.html")
+    user = request.COOKIES.get("sessionid")
+    usuario = User.objects.get(sessionId=user)
+    cart = Cart.objects.get(cliente_id=usuario.id)
+    temaki_salmao = Produto.objects.filter(nome="temaki de salmao").values("valor")
+    temaki_salmao_val = temaki_salmao[0]["valor"]
+    temaki_obj = Produto.objects.get(nome="temaki de salmao")
+    if cart:
+        cart.total += temaki_salmao_val
+        print(cart.total)
+        cart.pedidos.add(temaki_obj)
+        cart.save()
+        return render(request, "polls/pedido.html")
+    return render(request, "polls/temaki_salmao.html")
