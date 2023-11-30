@@ -1,6 +1,7 @@
 {%load static%}
 <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/teste.css'%}">
 <form action="{%url 'login' %}" method="POST">
+    {{relogin}}
     {% csrf_token %}
     <input name="lEmail" id="username" type="text"></input>
     <input name="lPassword"id="password" type="password"></input>

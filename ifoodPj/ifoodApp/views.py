@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as loginDjango
 from .forms import EnderecoForm, NameForm
@@ -12,17 +13,6 @@ def index(request):
         sessionUser = request.COOKIES.get("sessionid")
         user = NameForm()
         endereco = EnderecoForm()
-        '''
-        e = Endereco(rua="132",complemento="op",bairro="sad",cidade="dsa",numero="12")
-        e.save()
-        u = User(username="fasasf", password="fas", email="gsd@gmail", phoneNumber="213", adress=e)
-        u.save()
-        produto = Produto(nome="pizza", descricao="pizza", valor="32.90")
-        produto.save()
-        pedido = Pedido(cliente=u,observacoes="nenhuma", valor="32.90", status="P")
-        pedido.save()
-        pedido.produto.add(produto)
-        '''
         return render(request, "polls/index.html", {"user":user, "endereco":endereco})
     if request.method == "POST":
         user = NameForm(request.POST)
@@ -64,7 +54,6 @@ def login(request):
     users_email = User.objects.filter(email=email_login).first()
     users = User.objects.filter(username=email_login).first()
     if users_email or users:
-        
         user = User.objects.get(username=email_login)
         password_user = user.password
         if password_user == password_login:
@@ -78,21 +67,42 @@ def login(request):
 
 def platform(request):
     if request.method == "GET":
-        return render(request, "polls/platform.html")
+        relogin = "para continuar faca o login novamente"
+        relog = {"relogin":relogin}
+        userP = request.COOKIES.get("sessionid")
+        try:
+            logUser = User.objects.get(sessionId=userP)
+            return render(request, "polls/platform.html")
+        except ObjectDoesNotExist:
+            
+            return render(request, "polls/login.html", relog)
+    else:
+        userP = request.COOKIES.get("sessionid")
+        try:
+            logUser = User.objects.get(sessionId=userP)
+            logUser.sessionId = None
+            logUser.save()
+        except ObjectDoesNotExist:
+            return render(request, "polls/login.html", relog)
+        return render(request, "polls/login.html")
 
 def pizza(request):
     if request.method == "GET":
         return render(request, "polls/pizza.html")
     user = request.COOKIES.get("sessionid")
     usuario = User.objects.get(sessionId=user)
+    cart = Cart.objects.get(cliente_id=usuario.id)
     pizza = Produto.objects.filter(nome="pizza").values("valor")
     pizza_val = pizza[0]["valor"]
-    total = pizza_val
     pizza_obj = Produto.objects.get(nome="pizza")
-    carrinho = Cart(cliente=usuario,total=total)
-    carrinho.save()
-    carrinho.pedidos.add(pizza_obj)
+    if cart:
+        cart.total += pizza_val
+        cart.pedidos.add(pizza_obj)
+        cart.save()
+        return render(request, "polls/pedido.html")
     return render(request, "polls/pedido.html")
+
+
 def temaki_salmao(request):
     if request.method == "GET":
         return render(request, "polls/temaki_salmao.html")
@@ -104,8 +114,75 @@ def temaki_salmao(request):
     temaki_obj = Produto.objects.get(nome="temaki de salmao")
     if cart:
         cart.total += temaki_salmao_val
-        print(cart.total)
         cart.pedidos.add(temaki_obj)
         cart.save()
         return render(request, "polls/pedido.html")
     return render(request, "polls/temaki_salmao.html")
+
+def esfiha(request):
+    if request.method == "GET":
+        return render(request, "polls/esfiha.html")
+    user = request.COOKIES.get("sessionid")
+    usuario = User.objects.get(sessionId=user)
+    cart = Cart.objects.get(cliente_id=usuario.id)
+    esfiha = Produto.objects.filter(nome="esfiha").values("valor")
+    esfiha_val = esfiha[0]["valor"]
+    esfiha_obj = Produto.objects.get(nome="esfiha")
+    if cart:
+        cart.total += esfiha_val
+        cart.pedidos.add(esfiha_obj)
+        cart.save()
+        return render(request, "polls/pedido.html")
+    return render(request, "polls/esfiha.html")
+
+
+def sorvete(request):
+    if request.method == "GET":
+        return render(request, "polls/sorvete.html")
+    user = request.COOKIES.get("sessionid")
+    usuario = User.objects.get(sessionId=user)
+    cart = Cart.objects.get(cliente_id=usuario.id)
+    sorvete = Produto.objects.filter(nome="sorvete").values("valor")
+    sorvete_val = sorvete[0]["valor"]
+    sorvete_obj = Produto.objects.get(nome="sorvete")
+    if cart:
+        cart.total += sorvete_val
+        cart.pedidos.add(sorvete_obj)
+        cart.save()
+        return render(request, "polls/pedido.html")
+    return render(request, "polls/sorvete.html")
+
+
+def bolo(request):
+    if request.method == "GET":
+        return render(request, "polls/bolo.html")
+    user = request.COOKIES.get("sessionid")
+    usuario = User.objects.get(sessionId=user)
+    cart = Cart.objects.get(cliente_id=usuario.id)
+    bolo = Produto.objects.filter(nome="bolo").values("valor")
+    bolo_val = bolo[0]["valor"]
+    bolo_obj = Produto.objects.get(nome="bolo")
+    if cart:
+        cart.total += bolo_val
+        cart.pedidos.add(bolo_obj)
+        cart.save()
+        return render(request, "polls/pedido.html")
+    return render(request, "polls/bolo.html")
+
+
+def coca_cola(request):
+    if request.method == "GET":
+        return render(request, "polls/coca_cola.html")
+    user = request.COOKIES.get("sessionid")
+    usuario = User.objects.get(sessionId=user)
+    cart = Cart.objects.get(cliente_id=usuario.id)
+    coca_cola = Produto.objects.filter(nome="temaki de salmao").values("valor")
+    coca_cola_val = coca_cola[0]["valor"]
+    coca_cola_obj = Produto.objects.get(nome="temaki de salmao")
+    if cart:
+        cart.total += coca_cola_val
+        print(cart.total)
+        cart.pedidos.add(coca_cola_obj)
+        cart.save()
+        return render(request, "polls/pedido.html")
+    return render(request, "polls/coca_cola.html")

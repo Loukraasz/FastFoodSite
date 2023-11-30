@@ -1,3 +1,5 @@
+{% extends "polls/base.html" %}
+{%block base%}
 {%load static%}
 <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/teste.css'%}">
 <form action="{%url 'index' %}" method="POST">
@@ -8,3 +10,4 @@
     </table>
     <input type="submit">
 </form>
+{%endblock%}

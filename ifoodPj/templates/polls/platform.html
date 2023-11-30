@@ -1,3 +1,9 @@
-
+{% extends "polls/base.html" %}
+{%block base%}
 <a href="{%url 'pizza'%}">Pizza<a/>
 <a href="{%url 'temaki_salmao'%}">temaki_salmao</a>
+<form action="{%url 'platform' %}" method="POST">
+    {% csrf_token %}
+    <button></button>
+</form>
+{%endblock%}
