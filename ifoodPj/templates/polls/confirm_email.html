@@ -1,0 +1,10 @@
+{% extends "polls/base.html" %}
+{%block base%}
+{%load static%}
+gskadhj
+<form action="{%url 'confirm_email'%}" method="POST">
+    {% csrf_token %}
+    <input id="rCode" name="rec_code"></input>
+    <button>E</button>
+</form>
+{%endblock%}

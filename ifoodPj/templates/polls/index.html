@@ -3,11 +3,11 @@
 {%load static%}
 <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/teste.css'%}">
 <form action="{%url 'index' %}" method="POST">
+    {{relogin}}
     {% csrf_token %}
-    <table>
-    {{user.as_table}}
-    {{endereco.as_table}}
-    </table>
-    <input type="submit">
+    <input name="lEmail" id="username" type="text"></input>
+    <input name="lPassword"id="password" type="password"></input>
+    <button type="submit" class="mainButton" id="lEntrar">e</button>
+    <a href="{%url 'rec_password' %}">esquceu senha</a>
 </form>
 {%endblock%}

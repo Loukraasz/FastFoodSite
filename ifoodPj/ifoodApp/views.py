@@ -1,19 +1,38 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth import authenticate
-from django.contrib.auth import login as loginDjango
+from ifoodApp import send_email
 from .forms import EnderecoForm, NameForm
-from .models import Produto, Pedido,User, Endereco,Cart
+from .models import Produto, User ,Cart
 
 def index(request):
     if request.method == "GET":
         global sessionUser
         request.session['session'] = "sessions"
         sessionUser = request.COOKIES.get("sessionid")
+        return render(request, "polls/index.html",)
+    email_login = request.POST.get("lEmail")
+    password_login = request.POST.get("lPassword")
+    users_email = User.objects.filter(email=email_login).first()
+    users = User.objects.filter(username=email_login).first()
+    if users_email or users:
+        user = User.objects.get(username=email_login)
+        password_user = user.password
+        if password_user == password_login:
+            sessionUser
+            user.sessionId = sessionUser
+            user.save()
+            return render(request, "polls/platform.html")
+        else:
+            return HttpResponse("asd")
+    return HttpResponse("paia")
+        
+
+def cad(request):
+    if request.method == "GET":
         user = NameForm()
         endereco = EnderecoForm()
-        return render(request, "polls/index.html", {"user":user, "endereco":endereco})
+        return render(request, "polls/cad.html", {"user": user, "endereco":endereco})
     if request.method == "POST":
         user = NameForm(request.POST)
         endereco = EnderecoForm(request.POST)
@@ -27,14 +46,26 @@ def index(request):
         return HttpResponse("erro")
 
 
-def cad(request):
-    pizza = Produto.objects.get(nome="pizza")
-    usuario = User.objects.get(username="lukas")
-    pedido = Pedido(cliente=usuario,observacoes="nenhuma", valor="32.90", status="P")
-    pedido.save()
-    pedido.produto.add(pizza)
-    return HttpResponse("nada por enquanto")
-
+def rec_password(request):
+    if request.method == "GET":
+        return render(request, "polls/rec_password.html")
+    email = request.POST.get("rec_email")
+    try:
+        email_user = User.objects.get(email=email)
+        send_email.send_emails(email_user.email)
+        return render(request, "polls/confirm_email.html")
+    except ObjectDoesNotExist:
+        return HttpResponse("erro")
+    
+def confirm_email(request):
+    if request.method == "GET":
+        return render(request, "polls/confirm_email.html")
+    code = request.POST.get("rec_code")
+    if code == send_email.final:
+        return HttpResponse("bala")
+    return HttpResponse("erro")
+        
+    
 def pedido(request):
     if request.method == "GET":
         return render(request, "polls/pedido.html")
@@ -45,25 +76,6 @@ def pedido(request):
     cart.delete()
     return render(request, "polls/pedido.html")
 
-
-def login(request):
-    if request.method =="GET":
-        return render(request, "polls/login.html")
-    email_login = request.POST.get("lEmail")
-    password_login = request.POST.get("lPassword")
-    users_email = User.objects.filter(email=email_login).first()
-    users = User.objects.filter(username=email_login).first()
-    if users_email or users:
-        user = User.objects.get(username=email_login)
-        password_user = user.password
-        if password_user == password_login:
-            global sessionUser
-            user.sessionId = sessionUser
-            user.save()
-            return render(request, "polls/platform.html")
-        else:
-            return HttpResponse("asd")
-    return HttpResponse("paia")
 
 def platform(request):
     if request.method == "GET":
@@ -186,3 +198,6 @@ def coca_cola(request):
         cart.save()
         return render(request, "polls/pedido.html")
     return render(request, "polls/coca_cola.html")
+
+
+    
