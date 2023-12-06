@@ -51,6 +51,7 @@ def rec_password(request):
         return render(request, "polls/rec_password.html")
     email = request.POST.get("rec_email")
     try:
+        global email_user
         email_user = User.objects.get(email=email)
         send_email.send_emails(email_user.email)
         return render(request, "polls/confirm_email.html")
@@ -62,8 +63,20 @@ def confirm_email(request):
         return render(request, "polls/confirm_email.html")
     code = request.POST.get("rec_code")
     if code == send_email.final:
-        return HttpResponse("bala")
+        return render(request, "polls/password_change.html")
     return HttpResponse("erro")
+
+def password_change(request):
+    if request.method == "GET":
+        return render(request, "polls/password_change.html")
+    np = request.POST.get("new_pass")
+    npc = request.POST.get("new_pass_conf")
+    if np == npc:
+        email_user.password = npc
+        email_user.save()
+        return HttpResponse("OK")
+    else:
+        return HttpResponse("paia")
         
     
 def pedido(request):

@@ -16,4 +16,5 @@ urlpatterns = [
     path('coca_cola',views.coca_cola, name="coca_cola"),
     path('rec_password',views.rec_password, name="rec_password"),
     path('confirm_email',views.confirm_email, name="confirm_email"),
+    path('password_change',views.password_change, name="password_change"),
 ]
