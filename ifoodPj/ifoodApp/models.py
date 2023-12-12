@@ -14,6 +14,7 @@ class Produto(models.Model):
     descricao = models.CharField(max_length=200)
     valor = models.FloatField()
     
+    
 class Pedido(models.Model):
     status_choices = (
         ("P", "Pedido realizado"),
@@ -33,6 +34,7 @@ class Cart(models.Model):
     cliente = models.OneToOneField("User", on_delete=models.SET_NULL, null=True)
     total = models.FloatField(null=True)
     pedidos = models.ManyToManyField("Produto")
+    quantidade = models.IntegerField(null=True)
     
     
 

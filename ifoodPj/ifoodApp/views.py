@@ -114,7 +114,6 @@ def platform(request):
 
 def pizza(request):
     if request.method == "GET":
-        
         pizza = Produto.objects.filter(nome="pizza").values("valor")
         pizza_val = pizza[0]["valor"]
         return render(request, "polls/pizza.html", {"product":pizza_val})
@@ -126,23 +125,19 @@ def pizza(request):
         pizza = Produto.objects.filter(nome="pizza").values("valor")
         pizza_val = pizza[0]["valor"]
         pizza_obj = Produto.objects.get(nome="pizza")
-        cartA = Cart(total=pizza_val, cliente_id=usuario.id)
+        pizza_val_cart = request.POST.get("total_cart")
+        pizza_val_format = float(pizza_val_cart)
+        cartA = Cart(total=pizza_val_format, cliente_id=usuario.id)
         cartA.save()
+        cartA.pedidos.add(pizza_obj)
         return render(request, "polls/pedido.html")
     pizza = Produto.objects.filter(nome="pizza").values("valor")
     pizza_val = pizza[0]["valor"]
     pizza_obj = Produto.objects.get(nome="pizza")
     pizza_val_cart = request.POST.get("total_cart")
-    pizza_val_format = float(pizza_val_cart.format(":,.2f"))
-    print(pizza_val_format)
+    pizza_val_format = float(pizza_val_cart)
     if cart:
-        a = str(cart.total)
-        a = a.format(":,.2f")
-        
-        
-        print(a)
-        print("terror")
-        cart.total += pizza_val_format
+        cart.total += pizza_val_format 
         cart.pedidos.add(pizza_obj)
         cart.save()
         return render(request, "polls/pedido.html",)
@@ -162,6 +157,8 @@ def temaki_salmao(request):
         temaki_salmao = Produto.objects.filter(nome="temaki de salmao").values("valor")
         temaki_salmao_val = temaki_salmao[0]["valor"]
         temaki_obj = Produto.objects.get(nome="temaki de salmao")
+        temaki_cart = request.POST.get("total_cart")
+        temaki_format = float(temaki_cart)
         cartE = Cart(total=temaki_salmao_val, cliente_id=usuario.id)
         cartE.save()
         return render(request, "polls/pedido.html")
@@ -169,8 +166,10 @@ def temaki_salmao(request):
     temaki_salmao = Produto.objects.filter(nome="temaki de salmao").values("valor")
     temaki_salmao_val = temaki_salmao[0]["valor"]
     temaki_obj = Produto.objects.get(nome="temaki de salmao")
+    temaki_cart = request.POST.get("total_cart")
+    temaki_format = float(temaki_cart)
     if cart:
-        cart.total += temaki_salmao_val
+        cart.total += temaki_format
         cart.pedidos.add(temaki_obj)
         cart.save()
         return render(request, "polls/pedido.html")
@@ -187,15 +186,19 @@ def esfiha(request):
         esfiha = Produto.objects.filter(nome="esfiha").values("valor")
         esfiha_val = esfiha[0]["valor"]
         esfiha_obj = Produto.objects.get(nome="esfiha")
-        cartE = Cart(total=esfiha_val, cliente_id=usuario.id)
-        cartE.save()
+        esfiha_cart = request.POST.get("total_cart")
+        esfiha_format = float(esfiha_cart)
+        cart_a = Cart(total=esfiha_format, cliente_id=usuario.id)
+        cart_a.save()
         return render(request, "polls/pedido.html")
     cart = Cart.objects.get(cliente_id=usuario.id)
     esfiha = Produto.objects.filter(nome="esfiha").values("valor")
     esfiha_val = esfiha[0]["valor"]
     esfiha_obj = Produto.objects.get(nome="esfiha")
+    esfiha_cart = request.POST.get("total_cart")
+    esfiha_format = float(esfiha_cart)
     if cart:
-        cart.total += esfiha_val
+        cart.total += esfiha_format
         cart.pedidos.add(esfiha_obj)
         cart.save()
         return render(request, "polls/pedido.html")
@@ -213,13 +216,17 @@ def sorvete(request):
         sorvete = Produto.objects.filter(nome="sorvete").values("valor")
         sorvete_val = sorvete[0]["valor"]
         sorvete_obj = Produto.objects.get(nome="sorvete")
-        cartE = Cart(total=sorvete_val, cliente_id=usuario.id)
-        cartE.save()
+        sorvete_cart = request.POST.get("total_cart")
+        sorvete_format = float(sorvete_cart)
+        cart_a = Cart(total=sorvete_format, cliente_id=usuario.id)
+        cart_a.save()
         return render(request, "polls/pedido.html")
     cart = Cart.objects.get(cliente_id=usuario.id)
     sorvete = Produto.objects.filter(nome="sorvete").values("valor")
     sorvete_val = sorvete[0]["valor"]
     sorvete_obj = Produto.objects.get(nome="sorvete")
+    sorvete_cart = request.POST.get("total_cart")
+    sorvete_format = float(sorvete_format)
     if cart:
         cart.total += sorvete_val
         cart.pedidos.add(sorvete_obj)
@@ -239,15 +246,19 @@ def bolo(request):
         bolo = Produto.objects.filter(nome="bolo").values("valor")
         bolo_val = bolo[0]["valor"]
         bolo_obj = Produto.objects.get(nome="bolo")
-        cartE = Cart(total=bolo_val, cliente_id=usuario.id)
-        cartE.save()
+        bolo_cart = request.POST.get("total_cart")
+        bolo_format = float(bolo_cart)
+        cart_a = Cart(total=bolo_format, cliente_id=usuario.id)
+        cart_a.save()
         return render(request, "polls/pedido.html")
     cart = Cart.objects.get(cliente_id=usuario.id)
     bolo = Produto.objects.filter(nome="bolo").values("valor")
     bolo_val = bolo[0]["valor"]
     bolo_obj = Produto.objects.get(nome="bolo")
+    bolo_cart = request.POST.get("total_cart")
+    bolo_format = float(bolo_cart)
     if cart:
-        cart.total += bolo_val
+        cart.total += bolo_format
         cart.pedidos.add(bolo_obj)
         cart.save()
         return render(request, "polls/pedido.html")
@@ -265,15 +276,19 @@ def coca_cola(request):
         coca_cola = Produto.objects.filter(nome="temaki de salmao").values("valor")
         coca_cola_val = coca_cola[0]["valor"]
         coca_cola_obj = Produto.objects.get(nome="temaki de salmao")
-        cartE = Cart(total=coca_cola_val, cliente_id=usuario.id)
-        cartE.save()
+        coca_cola_cart = request.POST.get("total_cart")
+        coca_cola_format = float(coca_cola_cart)
+        cart_a = Cart(total=coca_cola_format, cliente_id=usuario.id)
+        cart_a.save()
         return render(request, "polls/pedido.html")
     cart = Cart.objects.get(cliente_id=usuario.id)
     coca_cola = Produto.objects.filter(nome="temaki de salmao").values("valor")
     coca_cola_val = coca_cola[0]["valor"]
     coca_cola_obj = Produto.objects.get(nome="temaki de salmao")
+    coca_cola_cart = request.POST.get("total_cart")
+    coca_cola_format = float(coca_cola_cart)
     if cart:
-        cart.total += coca_cola_val
+        cart.total += coca_cola_format
         print(cart.total)
         cart.pedidos.add(coca_cola_obj)
         cart.save()

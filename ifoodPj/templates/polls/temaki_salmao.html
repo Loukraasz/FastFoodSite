@@ -2,6 +2,7 @@
 {%block products%}
 <form action="{%url 'temaki_salmao'%}" method ="POST">
     {% csrf_token %}
+    <input id="total" readonly name="total_cart" type="number" value ="{{product}}" ></input>
     <button>Adicionar ao carrinho</button>
 </form>
 </body>
