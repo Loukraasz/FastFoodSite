@@ -74,7 +74,7 @@ def password_change(request):
     if np == npc:
         email_user.password = npc
         email_user.save()
-        return HttpResponse("OK")
+        return render(request, "polls/index.html")
     else:
         return HttpResponse("paia")
         
@@ -99,7 +99,6 @@ def platform(request):
             logUser = User.objects.get(sessionId=userP)
             return render(request, "polls/platform.html")
         except ObjectDoesNotExist:
-            
             return render(request, "polls/login.html", relog)
     else:
         userP = request.COOKIES.get("sessionid")
@@ -109,11 +108,15 @@ def platform(request):
             logUser.save()
         except ObjectDoesNotExist:
             return render(request, "polls/login.html", relog)
+        pizza = Produto.objects.filter(nome="pizza").values("valor")
+        pizza_val = pizza[0]["valor"]
         return render(request, "polls/login.html")
 
 def pizza(request):
     if request.method == "GET":
-        return render(request, "polls/pizza.html")
+        pizza = Produto.objects.filter(nome="pizza").values("valor")
+        pizza_val = pizza[0]["valor"]
+        return render(request, "polls/pizza.html", {"pizza":pizza_val})
     user = request.COOKIES.get("sessionid")
     usuario = User.objects.get(sessionId=user)
     cart = Cart.objects.get(cliente_id=usuario.id)
@@ -124,7 +127,7 @@ def pizza(request):
         cart.total += pizza_val
         cart.pedidos.add(pizza_obj)
         cart.save()
-        return render(request, "polls/pedido.html")
+        return render(request, "polls/pedido.html",)
     return render(request, "polls/pedido.html")
 
 

@@ -1,4 +1,9 @@
-<form name="form_pizza"action="{%url 'pizza'%}" method = "POST">
+<script type="text/javascript" src="../static/ifoodApp/javascript/teste.js"></script>
+<form name="form_pizza"action="{%url 'pizza'%}" method ="GET">
     {% csrf_token %}
-<button></button>
 </form>
+<button id="A" onclick= "remove(); "></button>
+    <input type="number" readonly value ="{{pizza}}"id="total"></input>
+    <label id="price" value="{{pizza}}">{{pizza}}</label>
+    <input id ="add_remove" type="number" value=0 min=0 max=20 readonly></input>
+<button id="B" onclick="add()"></button>
