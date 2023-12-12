@@ -1,4 +1,9 @@
-<form name="form_pizza"action="{%url 'temaki_salmao'%}" method = "POST">
+{%extends "polls/base_products.html"%}
+{%block products%}
+<form action="{%url 'temaki_salmao'%}" method ="POST">
     {% csrf_token %}
-<button></button>
+    <button>Adicionar ao carrinho</button>
 </form>
+</body>
+</html>
+{%endblock%}

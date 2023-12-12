@@ -19,8 +19,8 @@ def index(request):
         user = User.objects.get(username=email_login)
         password_user = user.password
         if password_user == password_login:
-            sessionUser
-            user.sessionId = sessionUser
+            session = request.COOKIES.get("sessionid")
+            user.sessionId = session
             user.save()
             return render(request, "polls/platform.html")
         else:
@@ -97,34 +97,52 @@ def platform(request):
         userP = request.COOKIES.get("sessionid")
         try:
             logUser = User.objects.get(sessionId=userP)
+            if logUser.sessionId == None:
+                request.session['session'] = "sessions"
+                global session
+                session = request.COOKIES.get("sessionid")
+                return render(request, "polls/index.html", relog)
             return render(request, "polls/platform.html")
         except ObjectDoesNotExist:
-            return render(request, "polls/login.html", relog)
+            return render(request, "polls/index.html", relog)
     else:
         userP = request.COOKIES.get("sessionid")
-        try:
-            logUser = User.objects.get(sessionId=userP)
-            logUser.sessionId = None
-            logUser.save()
-        except ObjectDoesNotExist:
-            return render(request, "polls/login.html", relog)
-        pizza = Produto.objects.filter(nome="pizza").values("valor")
-        pizza_val = pizza[0]["valor"]
-        return render(request, "polls/login.html")
+        logUser = User.objects.get(sessionId=userP)
+        logUser.sessionId = None
+        logUser.save()
+        return render(request, "polls/index.html")
 
 def pizza(request):
     if request.method == "GET":
+        
         pizza = Produto.objects.filter(nome="pizza").values("valor")
         pizza_val = pizza[0]["valor"]
-        return render(request, "polls/pizza.html", {"pizza":pizza_val})
+        return render(request, "polls/pizza.html", {"product":pizza_val})
     user = request.COOKIES.get("sessionid")
     usuario = User.objects.get(sessionId=user)
-    cart = Cart.objects.get(cliente_id=usuario.id)
+    try:
+        cart = Cart.objects.get(cliente_id=usuario.id)
+    except ObjectDoesNotExist:
+        pizza = Produto.objects.filter(nome="pizza").values("valor")
+        pizza_val = pizza[0]["valor"]
+        pizza_obj = Produto.objects.get(nome="pizza")
+        cartA = Cart(total=pizza_val, cliente_id=usuario.id)
+        cartA.save()
+        return render(request, "polls/pedido.html")
     pizza = Produto.objects.filter(nome="pizza").values("valor")
     pizza_val = pizza[0]["valor"]
     pizza_obj = Produto.objects.get(nome="pizza")
+    pizza_val_cart = request.POST.get("total_cart")
+    pizza_val_format = float(pizza_val_cart.format(":,.2f"))
+    print(pizza_val_format)
     if cart:
-        cart.total += pizza_val
+        a = str(cart.total)
+        a = a.format(":,.2f")
+        
+        
+        print(a)
+        print("terror")
+        cart.total += pizza_val_format
         cart.pedidos.add(pizza_obj)
         cart.save()
         return render(request, "polls/pedido.html",)
@@ -133,9 +151,20 @@ def pizza(request):
 
 def temaki_salmao(request):
     if request.method == "GET":
-        return render(request, "polls/temaki_salmao.html")
+        temaki_salmao = Produto.objects.filter(nome="temaki de salmao").values("valor")
+        temaki_salmao_val = temaki_salmao[0]["valor"]
+        return render(request, "polls/temaki_salmao.html", {"product":temaki_salmao_val})
     user = request.COOKIES.get("sessionid")
     usuario = User.objects.get(sessionId=user)
+    try:
+        cart = Cart.objects.get(cliente_id=usuario.id)
+    except ObjectDoesNotExist:
+        temaki_salmao = Produto.objects.filter(nome="temaki de salmao").values("valor")
+        temaki_salmao_val = temaki_salmao[0]["valor"]
+        temaki_obj = Produto.objects.get(nome="temaki de salmao")
+        cartE = Cart(total=temaki_salmao_val, cliente_id=usuario.id)
+        cartE.save()
+        return render(request, "polls/pedido.html")
     cart = Cart.objects.get(cliente_id=usuario.id)
     temaki_salmao = Produto.objects.filter(nome="temaki de salmao").values("valor")
     temaki_salmao_val = temaki_salmao[0]["valor"]
@@ -152,6 +181,15 @@ def esfiha(request):
         return render(request, "polls/esfiha.html")
     user = request.COOKIES.get("sessionid")
     usuario = User.objects.get(sessionId=user)
+    try:
+        cart = Cart.objects.get(cliente_id=usuario.id)
+    except ObjectDoesNotExist:
+        esfiha = Produto.objects.filter(nome="esfiha").values("valor")
+        esfiha_val = esfiha[0]["valor"]
+        esfiha_obj = Produto.objects.get(nome="esfiha")
+        cartE = Cart(total=esfiha_val, cliente_id=usuario.id)
+        cartE.save()
+        return render(request, "polls/pedido.html")
     cart = Cart.objects.get(cliente_id=usuario.id)
     esfiha = Produto.objects.filter(nome="esfiha").values("valor")
     esfiha_val = esfiha[0]["valor"]
@@ -169,6 +207,15 @@ def sorvete(request):
         return render(request, "polls/sorvete.html")
     user = request.COOKIES.get("sessionid")
     usuario = User.objects.get(sessionId=user)
+    try:
+        cart = Cart.objects.get(cliente_id=usuario.id)
+    except ObjectDoesNotExist:
+        sorvete = Produto.objects.filter(nome="sorvete").values("valor")
+        sorvete_val = sorvete[0]["valor"]
+        sorvete_obj = Produto.objects.get(nome="sorvete")
+        cartE = Cart(total=sorvete_val, cliente_id=usuario.id)
+        cartE.save()
+        return render(request, "polls/pedido.html")
     cart = Cart.objects.get(cliente_id=usuario.id)
     sorvete = Produto.objects.filter(nome="sorvete").values("valor")
     sorvete_val = sorvete[0]["valor"]
@@ -186,6 +233,15 @@ def bolo(request):
         return render(request, "polls/bolo.html")
     user = request.COOKIES.get("sessionid")
     usuario = User.objects.get(sessionId=user)
+    try:
+        cart = Cart.objects.get(cliente_id=usuario.id)
+    except ObjectDoesNotExist:
+        bolo = Produto.objects.filter(nome="bolo").values("valor")
+        bolo_val = bolo[0]["valor"]
+        bolo_obj = Produto.objects.get(nome="bolo")
+        cartE = Cart(total=bolo_val, cliente_id=usuario.id)
+        cartE.save()
+        return render(request, "polls/pedido.html")
     cart = Cart.objects.get(cliente_id=usuario.id)
     bolo = Produto.objects.filter(nome="bolo").values("valor")
     bolo_val = bolo[0]["valor"]
@@ -203,6 +259,15 @@ def coca_cola(request):
         return render(request, "polls/coca_cola.html")
     user = request.COOKIES.get("sessionid")
     usuario = User.objects.get(sessionId=user)
+    try:
+        cart = Cart.objects.get(cliente_id=usuario.id)
+    except ObjectDoesNotExist:
+        coca_cola = Produto.objects.filter(nome="temaki de salmao").values("valor")
+        coca_cola_val = coca_cola[0]["valor"]
+        coca_cola_obj = Produto.objects.get(nome="temaki de salmao")
+        cartE = Cart(total=coca_cola_val, cliente_id=usuario.id)
+        cartE.save()
+        return render(request, "polls/pedido.html")
     cart = Cart.objects.get(cliente_id=usuario.id)
     coca_cola = Produto.objects.filter(nome="temaki de salmao").values("valor")
     coca_cola_val = coca_cola[0]["valor"]

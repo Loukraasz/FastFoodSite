@@ -1,0 +1,9 @@
+{%extends "polls/base_products.html"%}
+{%block products%}
+<form action="{%url 'sorvete'%}" method ="POST">
+    {% csrf_token %}
+    <button>Adicionar ao carrinho</button>
+</form>
+</body>
+</html>
+{%endblock%}
