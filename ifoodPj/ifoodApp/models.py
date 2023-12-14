@@ -28,12 +28,12 @@ class Pedido(models.Model):
     observacoes = models.CharField(max_length=300)
     valor = models.FloatField()
     status = models.CharField(max_length=1, choices=status_choices)
-    produto = models.ManyToManyField(Produto)
+    produto = models.ManyToManyField(to=Produto, related_name="produto")
     
 class Cart(models.Model):
     cliente = models.OneToOneField("User", on_delete=models.SET_NULL, null=True)
     total = models.FloatField(null=True)
-    pedidos = models.ManyToManyField("Produto")
+    pedidos = models.ManyToManyField(to=Produto, related_name="pedido")
     quantidade = models.IntegerField(null=True)
     
     

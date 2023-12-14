@@ -2,5 +2,6 @@
 <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/teste.css'%}">
 <form action="{%url 'pedido' %}" method="POST">
     {% csrf_token %}
+    {{caba}}
     <button>Confirmar Pedido</button>
 </form>

@@ -1,9 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.core.exceptions import ObjectDoesNotExist
 from ifoodApp import send_email
 from .forms import EnderecoForm, NameForm
-from .models import Produto, User ,Cart
+from .models import Pedido, Produto, User ,Cart
 
 def index(request):
     if request.method == "GET":
@@ -81,11 +81,19 @@ def password_change(request):
     
 def pedido(request):
     if request.method == "GET":
+        session = request.COOKIES.get("sessionid")
+        userC = User.objects.get(sessionId = session)
+        if userC:
+            cart = Cart.objects.get(cliente_id = userC.id)
+            if cart:
+                return render(request, "polls/pedido.html")
         return render(request, "polls/pedido.html")
     user = request.COOKIES.get("sessionid")
     usuario = User.objects.get(sessionId=user)
     usuario_id = usuario.id
     cart = Cart.objects.get(cliente_id = usuario_id)
+    pedido = Pedido(observacoes="", valor= cart.total,status ="P" , cliente_id = usuario_id)
+    pedido.save()
     cart.delete()
     return render(request, "polls/pedido.html")
 
@@ -140,7 +148,7 @@ def pizza(request):
         cart.total += pizza_val_format 
         cart.pedidos.add(pizza_obj)
         cart.save()
-        return render(request, "polls/pedido.html",)
+        return redirect("pedido")
     return render(request, "polls/pedido.html")
 
 
