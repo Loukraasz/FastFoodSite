@@ -33,7 +33,7 @@ class Pedido(models.Model):
 class Cart(models.Model):
     cliente = models.OneToOneField("User", on_delete=models.SET_NULL, null=True)
     total = models.FloatField(null=True)
-    pedidos = models.ManyToManyField(to=Produto, related_name="pedido")
+    produto = models.ManyToManyField(to=Produto, related_name="pedido")
     quantidade = models.IntegerField(null=True)
     
     
