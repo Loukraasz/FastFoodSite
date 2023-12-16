@@ -95,31 +95,24 @@ def pedido(request):
     usuario = User.objects.get(sessionId=user)
     usuario_id = usuario.id
     cart = Cart.objects.get(cliente_id = usuario_id)
-    print(cart)
     pedido = Pedido(observacoes="", valor=cart.total,status ="P" , cliente_id = usuario_id)
-    products = cart.produto.all().values("nome")
-    products_val = cart.produto.all().values("valor")
-    all_products = products.count()
-    counterP = 0
-    counterV = 0
+    infoT = Info.objects.filter(carrinho=cart.id).values("produto", "quantidade","total_p")
+    print("///")
+    print(infoT[0]["quantidade"])
+    print("///")
+    counter = 0
     list_product = []
     list_productV = []
-    while counterP < all_products:
-        product = products[counterP]["nome"]
-        print(product)
+    list_price = []
+    while counter < infoT.count():
+        product = Produto.objects.filter(id=infoT[counter]["produto"]).values("nome")
         list_product.append(product)
-        counterP += 1
-    while counterV < all_products:
-        productV = products_val[counterV]["valor"]
-        print(productV)
+        productV = infoT[counter]["quantidade"]
         list_productV.append(productV)
-        counterV += 1
-    print(list_productV, list_product)
-    info = Info.objects.filter(carrinho = cart.id).values("id")
-    counter = 0
-    
-        
-    pedido.save()
+        prices = infoT[counter]["total_p"]
+        list_price.append(prices)
+        counter += 1
+    print(list_productV, list_product, list_price)
     return render(request, "polls/pedido.html")
 
 
@@ -160,18 +153,16 @@ def pizza(request):
         pizza_obj = Produto.objects.get(nome="pizza")
         pizza_val_cart = request.POST.get("total_cart")
         pizza_val_format = float(pizza_val_cart)
-        cart_a = Cart(total=pizza_val_format, cliente_id=usuario.id)
+        cart_a = Cart(total=pizza_val_format, cliente_id=usuario.id, total_p = pizza_val_format)
         cart_a.save()
-        cart_a.produto.add(pizza_obj)
         return redirect("pedido")
     pizza_obj = Produto.objects.get(nome="pizza")
     pizza_val_cart = request.POST.get("total_cart")
     pizza_val_format = float(pizza_val_cart)
     if cart:
         cart.total += pizza_val_format 
-        cart.produto.add(pizza_obj)
         cart.save()
-        quantidade = Info(quantidade= quant, produto=pizza_obj, carrinho=cart)
+        quantidade = Info(quantidade= quant, produto=pizza_obj, carrinho=cart, total_p=pizza_val_format)
         quantidade.save()
         return redirect("pedido")
     return redirect("pedido")
@@ -194,9 +185,8 @@ def temaki_salmao(request):
         temaki_cart = request.POST.get("total_cart")
         temaki_format = float(temaki_cart)
         cart_a = Cart(total=temaki_salmao_val, cliente_id=usuario.id)
-        cart_a.produto.add(temaki_obj)
         cart_a.save()
-        quantidade = Info(quantidade= quant, produto=temaki_obj)
+        quantidade = Info(quantidade= quant, produto=temaki_obj,carrinho=cart_a, total_p=temaki_format)
         quantidade.save()
         quantidade.carrinho.add(cart)
         return redirect("pedido")
@@ -207,9 +197,8 @@ def temaki_salmao(request):
     temaki_format = float(temaki_cart)
     if cart:
         cart.total += temaki_format
-        cart.produto.add(temaki_obj)
         cart.save()
-        quantidade = Info(quantidade= quant, produto=temaki_obj, carrinho=cart)
+        quantidade = Info(quantidade= quant, produto=temaki_obj, carrinho=cart, total_p=temaki_format)
         quantidade.save()
         return redirect("pedido")
     return redirect("pedido")
@@ -230,9 +219,8 @@ def esfiha(request):
         esfiha_cart = request.POST.get("total_cart")
         esfiha_format = float(esfiha_cart)
         cart_a = Cart(total=esfiha_format, cliente_id=usuario.id)
-        cart_a.produto.add(esfiha_obj)
         cart_a.save()
-        quantidade = Info(quantidade= quant, produto=esfiha_obj)
+        quantidade = Info(quantidade= quant, produto=esfiha_obj, carrinho=cart_a, total_p=esfiha_format)
         quantidade.save()
         quantidade.carrinho.add(cart)
         return redirect("pedido")
@@ -243,11 +231,9 @@ def esfiha(request):
     esfiha_format = float(esfiha_cart)
     if cart:
         cart.total += esfiha_format
-        cart.produto.add(esfiha_obj)
         cart.save()
-        quantidade = Info(quantidade= quant, produto=esfiha_obj)
+        quantidade = Info(quantidade= quant, produto=esfiha_obj, carrinho=cart, total_p=esfiha_format)
         quantidade.save()
-        quantidade.carrinho.add(cart)
         return redirect("pedido")
     return redirect("pedido")
 
@@ -268,25 +254,19 @@ def sorvete(request):
         sorvete_cart = request.POST.get("total_cart")
         sorvete_format = float(sorvete_cart)
         cart_a = Cart(total=sorvete_format, cliente_id=usuario.id)
-        cart_a.produto.add(sorvete_obj)
         cart_a.save()
-        quantidade = Info(quantidade= quant, produto=sorvete_obj)
+        quantidade = Info(quantidade= quant, produto=sorvete_obj, carrinho=cart_a, total_p=sorvete_format)
         quantidade.save()
-        quantidade.carrinho.add(cart)
         return redirect("pedido")
     cart = Cart.objects.get(cliente_id=usuario.id)
-    sorvete = Produto.objects.filter(nome="sorvete").values("valor")
-    sorvete_val = sorvete[0]["valor"]
     sorvete_obj = Produto.objects.get(nome="sorvete")
     sorvete_cart = request.POST.get("total_cart")
-    sorvete_format = float(sorvete_format)
+    sorvete_format = float(sorvete_cart)
     if cart:
         cart.total += sorvete_format
-        cart.produto.add(sorvete_obj)
         cart.save()
-        quantidade = Info(quantidade= quant, produto=sorvete_obj)
+        quantidade = Info(quantidade= quant, produto=sorvete_obj, carrinho=cart, total_p=sorvete_format)
         quantidade.save()
-        quantidade.carrinho.add(cart)
         return redirect("pedido")
     return redirect("pedido")
 
@@ -307,25 +287,19 @@ def bolo(request):
         bolo_cart = request.POST.get("total_cart")
         bolo_format = float(bolo_cart)
         cart_a = Cart(total=bolo_format, cliente_id=usuario.id)
-        cart_a.produto.add(bolo_obj)
         cart_a.save()
-        quantidade = Info(quantidade=quant, produto=bolo_obj)
+        quantidade = Info(quantidade=quant, produto=bolo_obj, carrinho=cart_a, total_p=bolo_format)
         quantidade.save()
-        quantidade.carrinho.add(cart)
         return redirect("pedido")
     cart = Cart.objects.get(cliente_id=usuario.id)
-    bolo = Produto.objects.filter(nome="bolo").values("valor")
-    bolo_val = bolo[0]["valor"]
     bolo_obj = Produto.objects.get(nome="bolo")
     bolo_cart = request.POST.get("total_cart")
     bolo_format = float(bolo_cart)
     if cart:
-        quantidade = Info(quantidade= quant, produto=bolo_obj)
-        quantidade.save()
-        quantidade.carrinho.add(cart)
         cart.total += bolo_format
-        cart.produto.add(bolo_obj)
         cart.save()
+        quantidade = Info(quantidade= quant, produto=bolo_obj, carrinho=cart, total_p=bolo_format)
+        quantidade.save()
         return redirect("pedido")
     return redirect("pedido")
 
@@ -346,25 +320,20 @@ def coca_cola(request):
         coca_cola_cart = request.POST.get("total_cart")
         coca_cola_format = float(coca_cola_cart)
         cart_a = Cart(total=coca_cola_format, cliente_id=usuario.id)
-        cart_a.produto.add(coca_cola_obj)
         cart_a.save()
-        quantidade = Info(quantidade= quant, produto=coca_cola_obj)
+        quantidade = Info(quantidade= quant, produto=coca_cola_obj,carrinho = cart_a, total_p=coca_cola_format)
         quantidade.save()
         quantidade.carrinho.add(cart)
         return redirect("pedido")
     cart = Cart.objects.get(cliente_id=usuario.id)
-    coca_cola = Produto.objects.filter(nome="coca cola").values("valor")
-    coca_cola_val = coca_cola[0]["valor"]
     coca_cola_obj = Produto.objects.get(nome="coca cola")
     coca_cola_cart = request.POST.get("total_cart")
     coca_cola_format = float(coca_cola_cart)
     if cart:
-        quantidade = Info(quantidade= quant, produto=coca_cola_obj)
-        quantidade.save()
-        quantidade.carrinho.add(cart)
         cart.total += coca_cola_format
-        cart.produto.add(coca_cola_obj)
         cart.save()
+        quantidade = Info(quantidade= quant, produto=coca_cola_obj,carrinho = cart, total_p=coca_cola_format)
+        quantidade.save()
         return redirect("pedido")
     return redirect("pedido")
 

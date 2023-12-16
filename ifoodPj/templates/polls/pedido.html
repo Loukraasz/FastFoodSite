@@ -3,5 +3,6 @@
 <form action="{%url 'pedido' %}" method="POST">
     {% csrf_token %}
     {{caba}}
+    <a href="{%url 'platform'%}">Continuar comprando?</a>
     <button>Confirmar Pedido</button>
 </form>
