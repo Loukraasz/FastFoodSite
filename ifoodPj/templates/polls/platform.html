@@ -2,7 +2,11 @@
 {%block base%}
 <script type="text/javascript" src="../static/ifoodApp/javascript/teste.js"></script>
 <a href="{%url 'pizza'%}">Pizza<a/>
-<a href="{%url 'temaki_salmao'%}">temaki_salmao</a>
+<a href="{%url 'temaki_salmao'%}">temaki de salmao</a>
+<a href="{%url 'esfiha'%}">esfiha</a>
+<a href="{%url 'bolo'%}">bolo de leite ninho</a>
+<a href="{%url 'sorvete'%}">sorvete de baunilha</a>
+<a href="{%url 'coca_cola'%}">coca cola</a>
 <form action="{%url 'platform' %}" method="POST">
     {% csrf_token %}
     <button></button>
