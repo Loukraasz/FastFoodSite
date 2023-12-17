@@ -22,7 +22,7 @@ def index(request):
             session = request.COOKIES.get("sessionid")
             user.sessionId = session
             user.save()
-            return render(request, "polls/platform.html")
+            return redirect('platform')
         else:
             return HttpResponse("asd")
     return HttpResponse("paia")
@@ -81,46 +81,48 @@ def password_change(request):
     
 def pedido(request):
     if request.method == "GET":
-        session = request.COOKIES.get("sessionid")
-        userC = User.objects.get(sessionId = session)
-        if userC:
-            try:
-                cart = Cart.objects.get(cliente_id = userC.id)
-                if cart:
-                    return render(request, "polls/pedido.html")
-            except ObjectDoesNotExist:
-                return render(request, "polls/platform.html")
-        return render(request, "polls/pedido.html")
+        pass
+
+def revisar_pedido(request):
+    if request.method == "GET":
+        user = request.COOKIES.get("sessionid")
+        try:
+            usuario = User.objects.get(sessionId=user)
+            usuario_id = usuario.id
+            cart = Cart.objects.get(cliente_id = usuario_id)
+        except ObjectDoesNotExist:
+            return redirect("index")
+        info = Info.objects.filter(carrinho=cart.id).values("produto", "quantidade","total_p")
+        counter = 0
+        list_product = []
+        list_quant = []
+        list_price = []
+        while counter < info.count():
+            product = Produto.objects.filter(id=info[counter]["produto"]).values("nome")
+            list_product.append(product[0]["nome"])
+            quant = info[counter]["quantidade"]
+            list_quant.append(quant)
+            prices = info[counter]["total_p"]
+            list_price.append(prices)
+            counter += 1
+        return render(request, "polls/revisar_pedido.html", context={"products": list_product, "prices":list_price,
+                                                                 "quants":list_quant, "total":cart.total})
     user = request.COOKIES.get("sessionid")
     usuario = User.objects.get(sessionId=user)
     usuario_id = usuario.id
     cart = Cart.objects.get(cliente_id = usuario_id)
-    pedido = Pedido(observacoes="", valor=cart.total,status ="P" , cliente_id = usuario_id)
-    infoT = Info.objects.filter(carrinho=cart.id).values("produto", "quantidade","total_p")
-    print("///")
-    print(infoT[0]["quantidade"])
-    print("///")
-    counter = 0
-    list_product = []
-    list_productV = []
-    list_price = []
-    while counter < infoT.count():
-        product = Produto.objects.filter(id=infoT[counter]["produto"]).values("nome")
-        list_product.append(product)
-        productV = infoT[counter]["quantidade"]
-        list_productV.append(productV)
-        prices = infoT[counter]["total_p"]
-        list_price.append(prices)
-        counter += 1
-    print(list_productV, list_product, list_price)
-    return render(request, "polls/pedido.html")
-
+    pedido = Pedido(observacoes="", valor=cart.total ,status ="P" , cliente_id = usuario_id)
+    info = Info.objects.filter(carrinho=cart.id)
+    pedido.save()
+    cart.delete()
+    info.delete()
+    return HttpResponse("finalizado")
 
 def platform(request):
     if request.method == "GET":
         relogin = "para continuar faca o login novamente"
         relog = {"relogin":relogin}
-        userP = request.COOKIES.get("sessionid")
+        userP = request.COOKIES.get("sessionid")      
         try:
             logUser = User.objects.get(sessionId=userP)
             if logUser.sessionId == None:
@@ -128,9 +130,33 @@ def platform(request):
                 global session
                 session = request.COOKIES.get("sessionid")
                 return render(request, "polls/index.html", relog)
-            return render(request, "polls/platform.html")
+            else:
+                user = request.COOKIES.get("sessionid")
+                try:
+                    usuario = User.objects.get(sessionId=user)
+                    usuario_id = usuario.id
+                    cart = Cart.objects.get(cliente_id = usuario_id)
+                except ObjectDoesNotExist:
+                    return render(request, "polls/platform.html")
+                info = Info.objects.filter(carrinho=cart.id).values("produto", "quantidade","total_p")
+                counter = 0
+                list_product = []
+                list_quant = []
+                list_price = []
+                while counter < info.count():
+                    product = Produto.objects.filter(id=info[counter]["produto"]).values("nome")
+                    list_product.append(product[0]["nome"])
+                    quant = info[counter]["quantidade"]
+                    list_quant.append(quant)
+                    prices = info[counter]["total_p"]
+                    list_price.append(prices)
+                    counter += 1
+                    return render(request, "polls/platform.html", context={"products": list_product, "prices":list_price,
+                                                                 "quants":list_quant, "total":cart.total})
+                
         except ObjectDoesNotExist:
             return render(request, "polls/index.html", relog)
+        
     else:
         userP = request.COOKIES.get("sessionid")
         logUser = User.objects.get(sessionId=userP)
@@ -143,19 +169,21 @@ def pizza(request):
         pizza = Produto.objects.filter(nome="pizza").values("valor")
         pizza_val = pizza[0]["valor"]
         return render(request, "polls/pizza.html", {"product":pizza_val})
-    user = request.COOKIES.get("sessionid")
-    usuario = User.objects.get(sessionId=user)
     quant = request.POST.get("quant")
     try:
+        user = request.COOKIES.get("sessionid")
+        usuario = User.objects.get(sessionId=user)
         cart = Cart.objects.get(cliente_id=usuario.id)
     except ObjectDoesNotExist:
         pizza = Produto.objects.filter(nome="pizza").values("valor")
         pizza_obj = Produto.objects.get(nome="pizza")
         pizza_val_cart = request.POST.get("total_cart")
         pizza_val_format = float(pizza_val_cart)
-        cart_a = Cart(total=pizza_val_format, cliente_id=usuario.id, total_p = pizza_val_format)
+        cart_a = Cart(total=pizza_val_format, cliente_id=usuario.id)
         cart_a.save()
-        return redirect("pedido")
+        quantidade = Info(quantidade= quant, produto=pizza_obj, carrinho=cart_a, total_p=pizza_val_format)
+        quantidade.save()
+        return redirect("revisar_pedido")
     pizza_obj = Produto.objects.get(nome="pizza")
     pizza_val_cart = request.POST.get("total_cart")
     pizza_val_format = float(pizza_val_cart)
@@ -164,8 +192,8 @@ def pizza(request):
         cart.save()
         quantidade = Info(quantidade= quant, produto=pizza_obj, carrinho=cart, total_p=pizza_val_format)
         quantidade.save()
-        return redirect("pedido")
-    return redirect("pedido")
+        return redirect("revisar_pedido")
+    return redirect("revisar_pedido")
 
 
 def temaki_salmao(request):
@@ -173,10 +201,11 @@ def temaki_salmao(request):
         temaki_salmao = Produto.objects.filter(nome="temaki de salmao").values("valor")
         temaki_salmao_val = temaki_salmao[0]["valor"] 
         return render(request, "polls/temaki_salmao.html", {"product":temaki_salmao_val})
-    user = request.COOKIES.get("sessionid")
-    usuario = User.objects.get(sessionId=user)
+    
     quant = request.POST.get("quant")
     try:
+        user = request.COOKIES.get("sessionid")
+        usuario = User.objects.get(sessionId=user)
         cart = Cart.objects.get(cliente_id=usuario.id)
     except ObjectDoesNotExist:
         temaki_salmao = Produto.objects.filter(nome="temaki de salmao").values("valor")
@@ -188,8 +217,7 @@ def temaki_salmao(request):
         cart_a.save()
         quantidade = Info(quantidade= quant, produto=temaki_obj,carrinho=cart_a, total_p=temaki_format)
         quantidade.save()
-        quantidade.carrinho.add(cart)
-        return redirect("pedido")
+        return redirect("revisar_pedido")
     cart = Cart.objects.get(cliente_id=usuario.id)
     temaki_salmao = Produto.objects.filter(nome="temaki de salmao").values("valor")
     temaki_obj = Produto.objects.get(nome="temaki de salmao")
@@ -200,18 +228,18 @@ def temaki_salmao(request):
         cart.save()
         quantidade = Info(quantidade= quant, produto=temaki_obj, carrinho=cart, total_p=temaki_format)
         quantidade.save()
-        return redirect("pedido")
-    return redirect("pedido")
+        return redirect("revisar_pedido")
+    return redirect("revisar_pedido")
 
 def esfiha(request):
     if request.method == "GET":
         esfiha = Produto.objects.filter(nome="esfiha").values("valor")
         esfiha_val = esfiha[0]["valor"]
         return render(request, "polls/esfiha.html", {"product":esfiha_val})
-    user = request.COOKIES.get("sessionid")
-    usuario = User.objects.get(sessionId=user)
     quant = request.POST.get("quant")
     try:
+        user = request.COOKIES.get("sessionid")
+        usuario = User.objects.get(sessionId=user)
         cart = Cart.objects.get(cliente_id=usuario.id)
     except ObjectDoesNotExist:
         esfiha = Produto.objects.filter(nome="esfiha").values("valor")  
@@ -223,7 +251,7 @@ def esfiha(request):
         quantidade = Info(quantidade= quant, produto=esfiha_obj, carrinho=cart_a, total_p=esfiha_format)
         quantidade.save()
         quantidade.carrinho.add(cart)
-        return redirect("pedido")
+        return redirect("revisar_pedido")
     cart = Cart.objects.get(cliente_id=usuario.id)
     esfiha = Produto.objects.filter(nome="esfiha").values("valor")
     esfiha_obj = Produto.objects.get(nome="esfiha")
@@ -234,8 +262,8 @@ def esfiha(request):
         cart.save()
         quantidade = Info(quantidade= quant, produto=esfiha_obj, carrinho=cart, total_p=esfiha_format)
         quantidade.save()
-        return redirect("pedido")
-    return redirect("pedido")
+        return redirect("revisar_pedido")
+    return redirect("revisar_pedido")
 
 
 def sorvete(request):
@@ -243,10 +271,10 @@ def sorvete(request):
         sorvete = Produto.objects.filter(nome="sorvete").values("valor")
         sorvete_val = sorvete[0]["valor"]
         return render(request, "polls/sorvete.html", {"product":sorvete_val})
-    user = request.COOKIES.get("sessionid")
-    usuario = User.objects.get(sessionId=user)
     quant = request.POST.get("quant")
     try:
+        user = request.COOKIES.get("sessionid")
+        usuario = User.objects.get(sessionId=user)
         cart = Cart.objects.get(cliente_id=usuario.id)
     except ObjectDoesNotExist:
         sorvete = Produto.objects.filter(nome="sorvete").values("valor")
@@ -257,7 +285,7 @@ def sorvete(request):
         cart_a.save()
         quantidade = Info(quantidade= quant, produto=sorvete_obj, carrinho=cart_a, total_p=sorvete_format)
         quantidade.save()
-        return redirect("pedido")
+        return redirect("revisar_pedido")
     cart = Cart.objects.get(cliente_id=usuario.id)
     sorvete_obj = Produto.objects.get(nome="sorvete")
     sorvete_cart = request.POST.get("total_cart")
@@ -267,8 +295,8 @@ def sorvete(request):
         cart.save()
         quantidade = Info(quantidade= quant, produto=sorvete_obj, carrinho=cart, total_p=sorvete_format)
         quantidade.save()
-        return redirect("pedido")
-    return redirect("pedido")
+        return redirect("revisar_pedido")
+    return redirect("revisar_pedido")
 
 
 def bolo(request):
@@ -276,10 +304,10 @@ def bolo(request):
         bolo = Produto.objects.filter(nome="bolo").values("valor")
         bolo_val = bolo[0]["valor"]
         return render(request, "polls/bolo.html", {"product":bolo_val})
-    user = request.COOKIES.get("sessionid")
-    usuario = User.objects.get(sessionId=user)
     quant = request.POST.get("quant")
     try:
+        user = request.COOKIES.get("sessionid")
+        usuario = User.objects.get(sessionId=user)
         cart = Cart.objects.get(cliente_id=usuario.id)
     except ValueError or ObjectDoesNotExist:
         bolo = Produto.objects.filter(nome="bolo").values("valor")     
@@ -290,7 +318,7 @@ def bolo(request):
         cart_a.save()
         quantidade = Info(quantidade=quant, produto=bolo_obj, carrinho=cart_a, total_p=bolo_format)
         quantidade.save()
-        return redirect("pedido")
+        return redirect("revisar_pedido")
     cart = Cart.objects.get(cliente_id=usuario.id)
     bolo_obj = Produto.objects.get(nome="bolo")
     bolo_cart = request.POST.get("total_cart")
@@ -300,8 +328,8 @@ def bolo(request):
         cart.save()
         quantidade = Info(quantidade= quant, produto=bolo_obj, carrinho=cart, total_p=bolo_format)
         quantidade.save()
-        return redirect("pedido")
-    return redirect("pedido")
+        return redirect("revisar_pedido")
+    return redirect("revisar_pedido")
 
 
 def coca_cola(request):
@@ -309,10 +337,10 @@ def coca_cola(request):
         coca_cola = Produto.objects.filter(nome="coca cola").values("valor")
         coca_cola_val = coca_cola[0]["valor"]
         return render(request, "polls/coca_cola.html", {"product":coca_cola_val})
-    user = request.COOKIES.get("sessionid")
-    usuario = User.objects.get(sessionId=user)
     quant = request.POST.get("quant")
     try:
+        user = request.COOKIES.get("sessionid")
+        usuario = User.objects.get(sessionId=user)
         cart = Cart.objects.get(cliente_id=usuario.id)
     except ObjectDoesNotExist:
         coca_cola = Produto.objects.filter(nome="coca cola").values("valor")
@@ -323,8 +351,7 @@ def coca_cola(request):
         cart_a.save()
         quantidade = Info(quantidade= quant, produto=coca_cola_obj,carrinho = cart_a, total_p=coca_cola_format)
         quantidade.save()
-        quantidade.carrinho.add(cart)
-        return redirect("pedido")
+        return redirect("revisar_pedido")
     cart = Cart.objects.get(cliente_id=usuario.id)
     coca_cola_obj = Produto.objects.get(nome="coca cola")
     coca_cola_cart = request.POST.get("total_cart")
@@ -334,8 +361,8 @@ def coca_cola(request):
         cart.save()
         quantidade = Info(quantidade= quant, produto=coca_cola_obj,carrinho = cart, total_p=coca_cola_format)
         quantidade.save()
-        return redirect("pedido")
-    return redirect("pedido")
+        return redirect("revisar_pedido")
+    return redirect("revisar_pedido")
 
 
     

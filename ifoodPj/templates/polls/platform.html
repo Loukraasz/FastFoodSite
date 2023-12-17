@@ -1,14 +1,49 @@
-{% extends "polls/base.html" %}
+{% extends "polls/base.html"%}
 {%block base%}
-<script type="text/javascript" src="../static/ifoodApp/javascript/teste.js"></script>
+{%load static%}
+<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/revisao.css'%}">
+<script type="text/javascript" src="../static/ifoodApp/javascript/platform.js"></script>
 <a href="{%url 'pizza'%}">Pizza<a/>
+
 <a href="{%url 'temaki_salmao'%}">temaki de salmao</a>
+
 <a href="{%url 'esfiha'%}">esfiha</a>
+
 <a href="{%url 'bolo'%}">bolo de leite ninho</a>
+
 <a href="{%url 'sorvete'%}">sorvete de baunilha</a>
+
 <a href="{%url 'coca_cola'%}">coca cola</a>
+
+<a href="{%url 'revisar_pedido'%}">Carrinho</a>
 <form action="{%url 'platform' %}" method="POST">
     {% csrf_token %}
     <button></button>
 </form>
+<button onclick="edor_emilianenko(aside)">xagas</button>
+<aside id="aside">
+    <table id="a">
+        <td>Produto</td>
+    {%for product in products%}
+        <tr>
+            <td class="product"> {{product}} </td>
+        </tr>
+{%endfor%}
+    </table>
+    <table id="b">
+        <td>Quantidade</td>
+{%for quant in quants%}
+    <tr id="teste">
+        <td class="quant"> {{quant}} </td>
+    </tr>
+{%endfor%}
+    </table>
+    <table id="c">
+        <td>Total</td>
+{%for price in prices%}
+<tr>
+    <td class="price"> {{price}} </td>
+</tr>
+{%endfor%}
+<label id="">R${{total}}</label>
 {%endblock%}
