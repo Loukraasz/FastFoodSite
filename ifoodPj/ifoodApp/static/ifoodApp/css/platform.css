@@ -1,0 +1,33 @@
+aside#aside{
+    display: none;
+    background-color: black;
+    position:absolute;
+    margin-left:1450px; 
+    width:700px;
+    height:99%;
+    background-color: rgba(255, 254, 254, 0.1);
+    border-radius: 10px;
+}
+table#a{
+    position:absolute;
+}
+table#b{
+    position:absolute;
+    margin-left:100px;
+}
+table#c{
+    position:absolute;
+    margin-left:210px;
+    margin-bottom:300px;
+}
+label#total{
+    position:absolute;
+    margin-left:300px;
+    margin-top:25px;
+}
+label#valor{
+    position:absolute;
+    margin-top:3px;
+    margin-left:300px;
+    
+}

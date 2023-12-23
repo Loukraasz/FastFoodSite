@@ -1,4 +1,4 @@
-function edor_emilianenko(aside){
+function show(aside){
     aside.style.display = "block"
 
 }
