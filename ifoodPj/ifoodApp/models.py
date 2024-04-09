@@ -34,12 +34,12 @@ class Cart(models.Model):
     cliente = models.OneToOneField("User", on_delete=models.SET_NULL, null=True)
     total = models.FloatField(null=True)
     
-    
 class Info(models.Model):
     quantidade = models.IntegerField(null=True)
     produto = models.ForeignKey("Produto", on_delete=models.SET_NULL, null=True)
     carrinho = models.ForeignKey("Cart", on_delete=models.SET_NULL, null=True)
     total_p = models.FloatField(null=True)
+    
 
 
 class User(models.Model):
