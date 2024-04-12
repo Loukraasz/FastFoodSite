@@ -3,7 +3,7 @@
 {%load static%}
 <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/platform.css'%}">
 <script type="text/javascript" src="../static/ifoodApp/javascript/platform.js"></script>
-<a href="{%url 'pizza'%}">Pizza<a/>
+<a href="{%url 'pizza'%}">Pizza</a>
 
 <a href="{%url 'temaki_salmao'%}">temaki de salmao</a>
 
@@ -48,4 +48,7 @@
 </table>
 <label id="valor">Valor do Pedido</label>
 <label id="total" for="valor">R${{total}}</label>
+<form action="{%url 'revisar_pedido'%}" return false;>
+<button id="xin" onclick="">Finalizar</button>
+</form>
 {%endblock%}

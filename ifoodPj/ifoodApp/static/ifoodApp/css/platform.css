@@ -31,3 +31,7 @@ label#valor{
     margin-left:300px;
     
 }
+button#xin{
+    position: absolute;
+    margin-top: 500px;
+}

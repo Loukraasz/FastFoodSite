@@ -4,7 +4,6 @@
         <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/revisao.css'%}">
     </head>
         <body>
-            {%block aside%}
     <table id="a">
         <td>Produto</td>
     {%for product in products%}
@@ -28,13 +27,25 @@
     <td class="price">{{price}}</td>
 </tr>
 {%endfor%}
-<label id="">R${{total}}</label>
-{%endblock%}
+</table>
+<label id="total">R${{total}}</label>
+
+
+<div>
+    <div id="pay">
+    <Label>Forma De Pagamento</Label>
+    <select>
+        <option>Pix</option>
+        <option>Credito</option>
+        <option>Debito</option>
+    </select>
+</div>
+<textarea placeholder="Observacoes" rows="2" cols="30" id="obs"></textarea>
 <form action="{%url 'revisar_pedido' %}" method="POST">
     {%csrf_token%}
     <a href="{%url 'platform'%}" id="continue">Continuar comprando?</a>
     <button id="confirm">Confirmar Pedido</button>
 </form>
-    </table>
+</div>
         </body>
 </html>

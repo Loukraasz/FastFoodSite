@@ -184,7 +184,7 @@ def pizza(request):
         pizza_obj = Produto.objects.get(nome="pizza")
         pizza_val_cart = request.POST.get("total_cart")
         pizza_val_format = float(pizza_val_cart)
-        cart_a = Cart(total=pizza_val_format, cliente_id=usuario.id, total_q=quant)
+        cart_a = Cart(total=pizza_val_format, cliente_id=usuario.id)
         cart_a.save()
         quantidade = Info(quantidade= quant, produto=pizza_obj, carrinho=cart_a, total_p=pizza_val_format)
         quantidade.save()
@@ -194,7 +194,6 @@ def pizza(request):
     pizza_val_format = float(pizza_val_cart)
     if cart:
         cart.total += pizza_val_format 
-        cart.total_q += quant
         cart.save()
         quantidade = Info(quantidade= quant, produto=pizza_obj, carrinho=cart, total_p=pizza_val_format)
         quantidade.save()
@@ -219,7 +218,7 @@ def temaki_salmao(request):
         temaki_obj = Produto.objects.get(nome="temaki de salmao")
         temaki_cart = request.POST.get("total_cart")
         temaki_format = float(temaki_cart)
-        cart_a = Cart(total=temaki_salmao_val, cliente_id=usuario.id, total_q=quant)
+        cart_a = Cart(total=temaki_salmao_val, cliente_id=usuario.id)
         cart_a.save()
         quantidade = Info(quantidade= quant, produto=temaki_obj,carrinho=cart_a, total_p=temaki_format)
         quantidade.save()
@@ -231,7 +230,6 @@ def temaki_salmao(request):
     temaki_format = float(temaki_cart)
     if cart:
         cart.total += temaki_format
-        cart.total_q += quant
         cart.save()
         quantidade = Info(quantidade= quant, produto=temaki_obj, carrinho=cart, total_p=temaki_format)
         quantidade.save()
@@ -254,7 +252,7 @@ def esfiha(request):
         esfiha_obj = Produto.objects.get(nome="esfiha")
         esfiha_cart = request.POST.get("total_cart")
         esfiha_format = float(esfiha_cart)
-        cart_a = Cart(total=esfiha_format, cliente_id=usuario.id, total_q=quant)
+        cart_a = Cart(total=esfiha_format, cliente_id=usuario.id)
         cart_a.save()
         quantidade = Info(quantidade= quant, produto=esfiha_obj, carrinho=cart_a, total_p=esfiha_format)
         quantidade.save()
@@ -267,7 +265,6 @@ def esfiha(request):
     esfiha_format = float(esfiha_cart)
     if cart:
         cart.total += esfiha_format
-        cart.total_q += quant
         cart.save()
         quantidade = Info(quantidade= quant, produto=esfiha_obj, carrinho=cart, total_p=esfiha_format)
         quantidade.save()
@@ -291,7 +288,7 @@ def sorvete(request):
         sorvete_obj = Produto.objects.get(nome="sorvete")
         sorvete_cart = request.POST.get("total_cart")
         sorvete_format = float(sorvete_cart)
-        cart_a = Cart(total=sorvete_format, cliente_id=usuario.id, total_q=quant)
+        cart_a = Cart(total=sorvete_format, cliente_id=usuario.id)
         cart_a.save()
         quantidade = Info(quantidade= quant, produto=sorvete_obj, carrinho=cart_a, total_p=sorvete_format)
         quantidade.save()
@@ -302,7 +299,6 @@ def sorvete(request):
     sorvete_format = float(sorvete_cart)
     if cart:
         cart.total += sorvete_format
-        cart.total_q += quant
         cart.save()
         quantidade = Info(quantidade= quant, produto=sorvete_obj, carrinho=cart, total_p=sorvete_format)
         quantidade.save()
@@ -326,7 +322,7 @@ def bolo(request):
         bolo_obj = Produto.objects.get(nome="bolo")
         bolo_cart = request.POST.get("total_cart")
         bolo_format = float(bolo_cart)
-        cart_a = Cart(total=bolo_format, cliente_id=usuario.id, total_q=quant)
+        cart_a = Cart(total=bolo_format, cliente_id=usuario.id)
         cart_a.save()
         quantidade = Info(quantidade=quant, produto=bolo_obj, carrinho=cart_a, total_p=bolo_format)
         quantidade.save()
@@ -337,7 +333,6 @@ def bolo(request):
     bolo_format = float(bolo_cart)
     if cart:
         cart.total += bolo_format
-        cart.total_q += quant
         cart.save()
         quantidade = Info(quantidade= quant, produto=bolo_obj, carrinho=cart, total_p=bolo_format)
         quantidade.save()
@@ -361,7 +356,7 @@ def coca_cola(request):
         coca_cola_obj = Produto.objects.get(nome="coca cola")
         coca_cola_cart = request.POST.get("total_cart")
         coca_cola_format = float(coca_cola_cart)
-        cart_a = Cart(total=coca_cola_format, cliente_id=usuario.id, total_q=quant)
+        cart_a = Cart(total=coca_cola_format, cliente_id=usuario.id)
         cart_a.save()
         quantidade = Info(quantidade= quant, produto=coca_cola_obj,carrinho = cart_a, total_p=coca_cola_format)
         quantidade.save()
@@ -372,7 +367,6 @@ def coca_cola(request):
     coca_cola_format = float(coca_cola_cart)
     if cart:
         cart.total += coca_cola_format
-        cart.total_q += quant
         cart.save()
         quantidade = Info(quantidade= quant, produto=coca_cola_obj,carrinho = cart, total_p=coca_cola_format)
         quantidade.save()

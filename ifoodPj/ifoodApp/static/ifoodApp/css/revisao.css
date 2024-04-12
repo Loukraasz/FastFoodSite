@@ -3,32 +3,40 @@ input#id_username{
 }
 table#a{
     position:absolute;
+    margin-left:400px;
+    margin-top:10px;
 }
 table#b{
     position:absolute;
-    margin-left:300px;
-    margin-bottom:300px;
+    margin-left:700px;
+    margin-top:10px;
 }
 table#c{
     position:absolute;
-    margin-left:600px;
+    margin-left:1000px;
+    
+}
+label#total{
+    
 }
 button#confirm{
     position:absolute;
+    margin-left:1480px;
     margin-top:300px;
-    margin-left:150px;
+}
+textarea#obs{
+    resize:none;
+    margin-left:1300px;
+    position:absolute;
+    margin-top:200px;
 }
 a#continue{
     position:absolute;
+    margin-left:1300px;
     margin-top:300px;
+    
 }
-aside#aside{
-    display: none;
-    background-color: black;
+div#pay{
     position:absolute;
-    margin-left:1450px; 
-    width:400px;
-    height:99%;
-    background-color: rgba(255, 254, 254, 0.1);
-    border-radius: 10px;
+    margin-left:1300px;
 }
