@@ -1,0 +1,13 @@
+@font-face {
+    font-family: "font";
+    src: url('../fonts/DancingScript-Bold.ttf');
+}
+
+
+body#corpo{
+    background-image: url("../img/walp.jpg")
+}
+h1{
+    font-family: font;
+}
+

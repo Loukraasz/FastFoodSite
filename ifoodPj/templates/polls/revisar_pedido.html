@@ -1,6 +1,7 @@
 {%load static%}
 <html>
     <head>
+        <script type="text/javascript" src="../static/ifoodApp/javascript/revisao.js"></script>
         <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/revisao.css'%}">
     </head>
         <body>
@@ -34,18 +35,19 @@
 <div>
     <div id="pay">
     <Label>Forma De Pagamento</Label>
-    <select>
+    <select id="pag" onchange="teste()">
         <option>Pix</option>
         <option>Credito</option>
         <option>Debito</option>
     </select>
+    <img id="img" src="{%static 'ifoodApp/img/pix.jpg'%}"></img>
 </div>
 <textarea placeholder="Observacoes" rows="2" cols="30" id="obs"></textarea>
-<form action="{%url 'revisar_pedido' %}" method="POST">
+<form action="{%url 'revisar_pedido' %}" method="POST" return false;>
     {%csrf_token%}
     <a href="{%url 'platform'%}" id="continue">Continuar comprando?</a>
-    <button id="confirm">Confirmar Pedido</button>
 </form>
+<button id="confirm" onclick="teste()">Confirmar Pedido</button>
 </div>
         </body>
 </html>
