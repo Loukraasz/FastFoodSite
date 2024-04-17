@@ -1,9 +1,8 @@
+{% extends "polls/base.html"%}
+{%block base%}
 {%load static%}
-<html>
-    <head>
         <script type="text/javascript" src="../static/ifoodApp/javascript/revisao.js"></script>
         <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/revisao.css'%}">
-    </head>
         <body>
     <table id="a">
         <td>Produto</td>
@@ -31,7 +30,6 @@
 </table>
 <label id="total">R${{total}}</label>
 
-
 <div>
     <div id="pay">
     <Label>Forma De Pagamento</Label>
@@ -50,4 +48,4 @@
 <button id="confirm" onclick="teste()">Confirmar Pedido</button>
 </div>
         </body>
-</html>
+{%endblock%}
