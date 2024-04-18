@@ -3,19 +3,33 @@
 {%load static%}
 <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/platform.css'%}">
 <script type="text/javascript" src="../static/ifoodApp/javascript/platform.js"></script>
-<a href="{%url 'pizza'%}">Pizza</a>
+<div id="pizza">
+    <a id="pizza" href="{%url 'pizza'%}">Pizza
+        <img id="pizza" src="{%static 'ifoodApp/img/pizza.jpeg'%}"></img>
+    </a>
+</div>
 
-<a href="{%url 'temaki_salmao'%}">temaki de salmao</a>
+<div id="temaki">
+    <a href="{%url 'temaki_salmao'%}">temaki de salmao</a>
+</div>
 
-<a href="{%url 'esfiha'%}">esfiha</a>
+<div id="esfiha">
+    <a href="{%url 'esfiha'%}">esfiha</a>
+</div>
 
-<a href="{%url 'bolo'%}">bolo de leite ninho</a>
+<div id="bolo">
+    <a href="{%url 'bolo'%}">bolo de leite ninho</a>
+</div>
 
-<a href="{%url 'sorvete'%}">sorvete de baunilha</a>
+<div id="sorvete">
+    <a href="{%url 'sorvete'%}">sorvete de baunilha</a>
+</div>
 
-<a href="{%url 'coca_cola'%}">coca cola</a>
+<div id="coca">
+    <a href="{%url 'coca_cola'%}">coca cola</a>
+</div>
 
-<a href="{%url 'revisar_pedido'%}">Carrinho</a>
+
 <form action="{%url 'platform' %}" method="POST">
     {% csrf_token %}
     <button></button>
@@ -24,31 +38,31 @@
 <aside id="aside">
     <table id="a">
         <td>Produto</td>
-    {%for product in products%}
+        {%for product in products%}
         <tr>
             <td class="product"> {{product}} </td>
         </tr>
-{%endfor%}
+        {%endfor%}
     </table>
     <table id="b">
         <td>Quantidade</td>
-{%for quant in quants%}
-    <tr id="teste">
-        <td class="quant"> {{quant}} </td>
-    </tr>
-{%endfor%}
+        {%for quant in quants%}
+        <tr id="teste">
+            <td class="quant"> {{quant}} </td>
+        </tr>
+        {%endfor%}
     </table>
     <table id="c">
         <td>Total</td>
-{%for price in prices%}
-    <tr>
-        <td class="price"> {{price}}</td>
-    </tr>
-{%endfor%}
-</table>
-<label id="valor">Valor do Pedido</label>
-<label id="total" for="valor">R${{total}}</label>
-<form action="{%url 'revisar_pedido'%}" return false;>
-<button id="xin" onclick="">Finalizar</button>
-</form>
-{%endblock%}
+        {%for price in prices%}
+        <tr>
+            <td class="price"> {{price}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    <label id="valor">Valor do Pedido</label>
+    <label id="total" for="valor">R${{total}}</label>
+    <form action="{%url 'revisar_pedido'%}" return false;>
+        <button id="xin" onclick="">Finalizar</button>
+    </form>
+    {%endblock%}

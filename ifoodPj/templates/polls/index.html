@@ -1,7 +1,7 @@
 {% extends "polls/base.html" %}
 {%block base%}
 {%load static%}
-<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/teste.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/index.css'%}">
 <form id="form"action="{%url 'index' %}" method="POST">
     {{relogin}}
     {% csrf_token %}

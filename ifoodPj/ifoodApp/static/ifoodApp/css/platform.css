@@ -1,37 +1,60 @@
-aside#aside{
+aside#aside {
     display: none;
     background-color: black;
-    position:absolute;
-    margin-left:1450px; 
-    width:700px;
-    height:99%;
+    position: absolute;
+    margin-left: 1450px;
+    width: 700px;
+    height: 99%;
     background-color: rgba(255, 254, 254, 0.1);
     border-radius: 10px;
 }
-table#a{
-    position:absolute;
+
+a#pizza {
+    position: relative;
+    margin-left: 0px;
 }
-table#b{
-    position:absolute;
-    margin-left:100px;
+
+div#pizza {
+    margin-left: 300px;
+    width: 200px;
+    background-color: white;
 }
-table#c{
-    position:absolute;
-    margin-left:210px;
-    margin-bottom:300px;
+
+img {
+    border-radius: 5px;
+    width: 200px;
+    height: 200px;
 }
-label#total{
-    position:absolute;
-    margin-left:300px;
-    margin-top:25px;
+
+table#a {
+    position: absolute;
 }
-label#valor{
-    position:absolute;
-    margin-top:3px;
-    margin-left:300px;
-    
+
+table#b {
+    position: absolute;
+    margin-left: 100px;
 }
-button#xin{
+
+table#c {
+    position: absolute;
+    margin-left: 210px;
+    margin-bottom: 300px;
+}
+
+label#total {
+    position: absolute;
+    margin-left: 300px;
+    margin-top: 25px;
+}
+
+label#valor {
+    position: absolute;
+    margin-top: 3px;
+    margin-left: 300px;
+
+}
+
+button#xin {
     position: absolute;
     margin-top: 500px;
 }
