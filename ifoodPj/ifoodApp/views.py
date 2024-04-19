@@ -149,7 +149,6 @@ def platform(request):
                 list_price = []
                 total_p = Info.objects.filter(carrinho=cart.id).values("produto").count()
                 while counter < total_p:
-                    print(counter)
                     product = Produto.objects.filter(id=info[counter]["produto"]).values("nome")
                     list_product.append(product[0]["nome"])
                     quant = info[counter]["quantidade"]

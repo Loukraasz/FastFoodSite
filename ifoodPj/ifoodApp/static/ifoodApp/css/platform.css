@@ -9,12 +9,14 @@ aside#aside {
     border-radius: 10px;
 }
 
-a#pizza {
+a.ing{
     position: relative;
     margin-left: 0px;
 }
 
-div#pizza {
+div.ing{
+    border-radius:10px;
+    margin-top:10px;
     margin-left: 300px;
     width: 200px;
     background-color: white;
