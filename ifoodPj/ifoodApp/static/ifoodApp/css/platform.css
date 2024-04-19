@@ -56,7 +56,7 @@ label#valor {
 
 }
 
-button#xin {
+button{
     position: absolute;
     margin-top: 500px;
 }

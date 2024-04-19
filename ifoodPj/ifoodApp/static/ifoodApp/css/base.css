@@ -17,7 +17,7 @@ h1{
 }
 body {
   background-image: url("../img/walp.jpg");
-  display: inline-block;
+  display: grid;
 }
 form{
   position: relative;
