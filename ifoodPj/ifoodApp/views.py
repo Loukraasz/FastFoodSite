@@ -166,6 +166,13 @@ def platform(request):
         logUser.sessionId = None
         logUser.save()
         return render(request, "polls/index.html")
+    
+def pizza_doce(request):
+    return render(request , "polls/pizza_doce.html")
+
+
+def refrigerantes(request):
+    return render(request , "polls/refrigerantes.html")
 
 def pizza(request):
     if request.method == "GET":

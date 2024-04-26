@@ -3,6 +3,14 @@
 {%load static%}
 <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/platform.css'%}">
 <script type="text/javascript" src="../static/ifoodApp/javascript/platform.js"></script>
+
+<div id="nav">
+    <nav>
+       <ul><a href="{%url 'pizza_doce'%}"> Pizzas Doces </a></li>
+       <ul><a href="{%url 'refrigerantes'%}"> Refrigerantes </a></li>
+    </nav>
+  </div>
+
 <div class="ing" id="pizza">
     <a class="ing" id="pizza" href="{%url 'pizza'%}">Pizza
         <img id="pizza" src="{%static 'ifoodApp/img/pizza.jpeg'%}"></img>
