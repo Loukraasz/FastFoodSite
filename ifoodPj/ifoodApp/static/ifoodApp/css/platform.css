@@ -60,3 +60,28 @@ button{
     position: absolute;
     margin-top: 500px;
 }
+div#b{
+    position:absolute;
+    margin-left:600px;
+    margin-top:90px;
+}
+div#c{
+    position:absolute;
+    margin-left:900px;
+    margin-top:90px;
+}
+div#d{
+    position:absolute;
+    margin-left:600px;
+    margin-top:400px;
+}
+div#e{
+    position:absolute;
+    margin-left:900px;
+    margin-top:400px;
+}
+div#f{
+    position:absolute;
+    margin-left:300px;
+    margin-top:400px;
+}
