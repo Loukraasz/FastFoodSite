@@ -13,7 +13,7 @@
 
 <div class="ing" id="pizza">
         <img id="pizza" src="{%static 'ifoodApp/img/pizza.jpeg'%}"></img>
-        <a class="ing" id="pizza" href="{%url 'pizza'%}">Pizza</a>
+        <a class="ing" id="pizza" onclick="show(aside)">Pizza</a>
 </div>
 
 <div id="temaki" class="ing">
@@ -41,35 +41,17 @@
     {% csrf_token %}
     <button></button>
 </form>
-<button onclick="show(aside)">xagas</button>
+<button>xagas</button>
 <aside id="aside">
-    <table id="a">
-        <td>Produto</td>
-        {%for product in products%}
-        <tr>
-            <td class="product"> {{product}} </td>
-        </tr>
-        {%endfor%}
-    </table>
-    <table id="b">
-        <td>Quantidade</td>
-        {%for quant in quants%}
-        <tr id="teste">
-            <td class="quant"> {{quant}} </td>
-        </tr>
-        {%endfor%}
-    </table>
-    <table id="c">
-        <td>Total</td>
-        {%for price in prices%}
-        <tr>
-            <td class="price"> {{price}}</td>
-        </tr>
-        {%endfor%}
-    </table>
-    <label id="valor">Valor do Pedido</label>
-    <label id="total" for="valor">R${{total}}</label>
-    <form action="{%url 'revisar_pedido'%}" return false;>
-        <button id="xin" onclick="">Finalizar</button>
+    <form action="{%url 'pizza'%}" method ="POST">
+        {% csrf_token %}
+        <button id="A" class="add_remove" onclick= "remove(); "></button>
+        <label id="price">{{product}}</label>
+        <button id="B" class="add_remove" onclick="add()"></button>
+        <input name="quant" id ="add_remove" type="number" value=1 min=1 max=20 readonly></input>
+        <input id="total" readonly name="total_cart" type="number" value ="{{product}}" ></input>
+        <button>Adicionar ao carrinho</button>
+        aaaaaaaaa
     </form>
+</aside>
     {%endblock%}

@@ -10,8 +10,7 @@ aside#aside {
 }
 
 a.ing{
-    position: relative;
-    margin-left: 0px;
+    padding:0px;
 }
 
 div.ing{
@@ -84,4 +83,21 @@ div#f{
     position:absolute;
     margin-left:300px;
     margin-top:400px;
+}
+button.add_remove{
+    width:20px;
+    height:20px;
+    color:blue;
+}
+button#A{
+    position:absolute;
+    margin-top:25px;
+    margin-left:20px;
+    
+}
+button#B{
+    position:absolute;
+    margin-top:25px;
+    margin-left:50px;
+    
 }

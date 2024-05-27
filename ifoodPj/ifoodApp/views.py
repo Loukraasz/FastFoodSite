@@ -176,7 +176,7 @@ def refrigerantes(request):
 
 def pizza(request):
     if request.method == "GET":
-        pizza = Produto.objects.filter(nome="pizza").values("valor")
+        pizza = Produto.objects.filter(nome="Pizza Calabresa").values("valor")
         pizza_val = pizza[0]["valor"]
         return render(request, "polls/pizza.html", {"product":pizza_val})
     quant = request.POST.get("quant")
@@ -186,8 +186,8 @@ def pizza(request):
         usuario = User.objects.get(sessionId=user)
         cart = Cart.objects.get(cliente_id=usuario.id)
     except ObjectDoesNotExist or TypeError:
-        pizza = Produto.objects.filter(nome="pizza").values("valor")
-        pizza_obj = Produto.objects.get(nome="pizza")
+        pizza = Produto.objects.filter(nome="Pizza Calabresa").values("valor")
+        pizza_obj = Produto.objects.get(nome="Pizza Calabresa")
         pizza_val_cart = request.POST.get("total_cart")
         pizza_val_format = float(pizza_val_cart)
         cart_a = Cart(total=pizza_val_format, cliente_id=usuario.id)
@@ -195,8 +195,9 @@ def pizza(request):
         quantidade = Info(quantidade= quant, produto=pizza_obj, carrinho=cart_a, total_p=pizza_val_format)
         quantidade.save()
         return redirect("revisar_pedido")
-    pizza_obj = Produto.objects.get(nome="pizza")
-    pizza_val_cart = request.POST.get("total_cart")
+    pizza_obj = Produto.objects.get(nome="Pizza Calabresa")
+    pizza_val_cart = request.POST.get("quant")
+    print(pizza_val_cart + "sas")
     pizza_val_format = float(pizza_val_cart)
     if cart:
         cart.total += pizza_val_format 
