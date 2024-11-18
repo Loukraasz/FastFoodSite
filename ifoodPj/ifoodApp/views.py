@@ -7,18 +7,18 @@ from .models import Pedido, Produto, Info, User ,Cart
 
 def index(request):
     if request.method == "GET":
-        logUser = User.objects.get(id=3)
-        logUser.sessionId = None
         global sessionUser
-        request.session['session'] = "sessions"
         sessionUser = request.COOKIES.get("sessionid")
         return render(request, "polls/index.html",)
     email_login = request.POST.get("lEmail")
     password_login = request.POST.get("lPassword")
-    users_email = User.objects.filter(email=email_login).first()
-    users = User.objects.filter(username=email_login).first()
+    users_email = User.objects.filter(email=email_login)
+    users = User.objects.filter(username=email_login)
     if users_email or users:
-        user = User.objects.get(username=email_login)
+        try:
+            user = User.objects.get(username=email_login)
+        except ObjectDoesNotExist:
+            user = User.objects.get(email=email_login)
         password_user = user.password
         if password_user == password_login:
             session = request.COOKIES.get("sessionid")
@@ -27,7 +27,7 @@ def index(request):
             return redirect('platform')
         else:
             return HttpResponse("asd")
-    return HttpResponse("paia")
+
         
 
 def cad(request):
@@ -122,33 +122,30 @@ def revisar_pedido(request):
 
 def platform(request):
     if request.method == "GET":
-        logUser = User.objects.get(id=1)
-        logUser.sessionId = None
         relogin = "para continuar faca o login novamente"
         relog = {"relogin":relogin}
-        userP = request.COOKIES.get("sessionid")  
-        try:
-            logUser = User.objects.get(sessionId=userP)
-            if logUser.sessionId == None:
-                request.session['session'] = "sessions"
-                global session
-                session = request.COOKIES.get("sessionid")
-                return render(request, "polls/index.html", relog)                 
-            else:
-                user = request.COOKIES.get("sessionid")
-                try:
-                    usuario = User.objects.get(sessionId=user)
-                    usuario_id = usuario.id
-                    cart = Cart.objects.get(cliente_id = usuario_id)
-                except ObjectDoesNotExist:
-                    return render(request, "polls/platform.html")
-                info = Info.objects.filter(carrinho=cart.id).values("produto", "quantidade","total_p")
-                counter = 0
-                list_product = []
-                list_quant = []
-                list_price = []
-                total_p = Info.objects.filter(carrinho=cart.id).values("produto").count()
-                while counter < total_p:
+        userP = request.COOKIES.get("sessionid")
+        logUser = User.objects.get(sessionId=userP)
+        if logUser.sessionId == None:
+            request.session['session'] = "sessions"
+            global session
+            session = request.COOKIES.get("sessionid")
+            return render(request, "polls/index.html", relog)                 
+        else:
+            user = request.COOKIES.get("sessionid")
+            try:
+                usuario = User.objects.get(sessionId=user)
+                usuario_id = usuario.id
+                cart = Cart.objects.get(cliente_id = usuario_id)
+            except ObjectDoesNotExist:
+                return render(request, "polls/platform.html")
+            info = Info.objects.filter(carrinho=cart.id).values("produto", "quantidade","total_p")
+            counter = 0
+            list_product = []
+            list_quant = []
+            list_price = []
+            total_p = Info.objects.filter(carrinho=cart.id).values("produto").count()
+            while counter < total_p:
                     product = Produto.objects.filter(id=info[counter]["produto"]).values("nome")
                     list_product.append(product[0]["nome"])
                     quant = info[counter]["quantidade"]
@@ -156,10 +153,9 @@ def platform(request):
                     prices = info[counter]["total_p"]
                     list_price.append(prices)
                     counter += 1
-                return render(request, "polls/platform.html", context={"products": list_product, "prices":list_price,
+            return render(request, "polls/platform.html", context={"products": list_product, "prices":list_price,
                                                                  "quants":list_quant, "total":cart.total})
-        except ObjectDoesNotExist:
-            return render(request, "polls/index.html", relog)
+      
     else:
         userP = request.COOKIES.get("sessionid")
         logUser = User.objects.get(sessionId=userP)
