@@ -8,25 +8,37 @@ from .models import Pedido, Produto, Info, User ,Cart
 def index(request):
     if request.method == "GET":
         global sessionUser
-        sessionUser = request.COOKIES.get("sessionid")
-        return render(request, "polls/index.html",)
+        request.session['sessionid'] = ['sessionid']
+        return render(request, "polls/index.html")
+    sessionUser = request.COOKIES.get("sessionid")
     email_login = request.POST.get("lEmail")
     password_login = request.POST.get("lPassword")
     users_email = User.objects.filter(email=email_login)
     users = User.objects.filter(username=email_login)
+    users_incorrect = "Usuario Ou Senha Invalidos"
+    user_incorrect = {"user_incorrect":users_incorrect}
     if users_email or users:
         try:
             user = User.objects.get(username=email_login)
+            print('teste')
+            password_user = user.password
+            if password_user == password_login:
+                session = request.COOKIES.get("sessionid")
+                user.sessionId = session
+                user.save()
+                return redirect('platform')
         except ObjectDoesNotExist:
             user = User.objects.get(email=email_login)
-        password_user = user.password
-        if password_user == password_login:
-            session = request.COOKIES.get("sessionid")
-            user.sessionId = session
-            user.save()
-            return redirect('platform')
-        else:
-            return HttpResponse("asd")
+            password_user = user.password
+            if password_user == password_login:
+                session = request.COOKIES.get("sessionid")
+                user.sessionId = session
+                user.save()
+                return redirect('platform')
+            else:
+                return render(request, "polls/index.html", user_incorrect)
+    else:
+        return render(request, "polls/index.html", user_incorrect)
 
         
 
@@ -125,8 +137,11 @@ def platform(request):
         relogin = "para continuar faca o login novamente"
         relog = {"relogin":relogin}
         userP = request.COOKIES.get("sessionid")
-        logUser = User.objects.get(sessionId=userP)
-        if logUser.sessionId == None:
+        try:
+            logUser = User.objects.get(sessionId=userP)
+        except ObjectDoesNotExist:
+            return render(request, "polls/index.html", relog) 
+        if logUser.sessionId != sessionUser:
             request.session['session'] = "sessions"
             global session
             session = request.COOKIES.get("sessionid")
@@ -161,6 +176,7 @@ def platform(request):
         logUser = User.objects.get(sessionId=userP)
         logUser.sessionId = None
         logUser.save()
+        print("terste")
         return render(request, "polls/index.html")
     
 def pizza_doce(request):
@@ -172,7 +188,7 @@ def refrigerantes(request):
 
 def pizza(request):
     if request.method == "GET":
-        pizza = Produto.objects.filter(nome="Pizza Calabresa").values("valor")
+        pizza = Produto.objects.filter(nome="Pizza Banana").values("valor")
         pizza_val = pizza[0]["valor"]
         return render(request, "polls/pizza.html", {"product":pizza_val})
     quant = request.POST.get("quant")

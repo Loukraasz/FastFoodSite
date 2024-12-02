@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/index.css'%}">
 <form id="form"action="{%url 'index' %}" method="POST">
     {{relogin}}
+    {{user_incorrect}}
     {% csrf_token %}
     <div class="field">
         <input type="text" name="lEmail" autocomplete="off" id="username" placeholder="Email"/>
