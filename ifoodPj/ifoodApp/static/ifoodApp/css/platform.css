@@ -1,5 +1,5 @@
 aside#aside {
-    display: none;
+    display: block;
     background-color: black;
     position: absolute;
     margin-left: 1450px;
@@ -83,6 +83,10 @@ div#f{
     position:absolute;
     margin-left:300px;
     margin-top:400px;
+}
+input#add_remove{
+    width: 30px;
+    margin-right: 20px;
 }
 button.add_remove{
     width:20px;

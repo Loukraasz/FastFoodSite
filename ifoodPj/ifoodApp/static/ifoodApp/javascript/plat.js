@@ -1,9 +1,16 @@
 function show(aside){
-    aside.style.display = "block"
+    aside.style.display = "block"}
 
+function falseSubmit(event){
+    event.preventDefault();
 }
-function add(){
+
+
+
+function add(event){
     if (add_remove.value <20){
+        falseSubmit(event);
+        console.log("add")
         add_remove.value ++;
         let x = document.getElementById("total");
         const p = document.getElementById("price").innerText;
@@ -14,8 +21,10 @@ function add(){
         x.value = format
     }
 }
-function remove(){
+function remove(event){
     if (add_remove.value > 0){
+        falseSubmit(event);
+        console.log("remove")
         add_remove.value --;
         let x = document.getElementById("total");
         const p = document.getElementById("price").innerText;
