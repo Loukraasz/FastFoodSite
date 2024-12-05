@@ -6,12 +6,14 @@ function falseSubmit(event){
 }
 
 
-
+var b = document.getElementsByName("quant")
+console.log(b);
 function add(event){
-    if (add_remove.value <20){
+    if (quant.value <20){
+     
         falseSubmit(event);
-        console.log("add")
-        add_remove.value ++;
+        console.log("add");
+        quant.value ++;
         let x = document.getElementById("total");
         const p = document.getElementById("price").innerText;
         p_format = parseFloat(p);
