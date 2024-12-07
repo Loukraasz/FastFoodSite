@@ -2,13 +2,16 @@ aside#aside {
     display: none;
     background-color: black;
     position: absolute;
-    margin-left: 1450px;
+    margin-left: 1050px;
     width: 700px;
     height: 99%;
-    background-color: rgba(255, 254, 254, 0.1);
+    background-color: rgba(255, 254, 254, 0.4);
     border-radius: 10px;
 }
-
+form#form{
+    position:absolute;
+    margin-left:10px;
+}
 a.ing{
     padding:0px;
 }

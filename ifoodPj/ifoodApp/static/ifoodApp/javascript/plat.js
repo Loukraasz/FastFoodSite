@@ -1,9 +1,9 @@
 function show(aside){
-    aside.style.display = "block";
+    aside.style.display = "flex";
     
     }
 function hideAside(event){
-    if (aside.style.display == "block"){
+    if (aside.style.display == "flex"){
         falseSubmit(event);
         aside.style.display = "none";
     }
@@ -13,7 +13,7 @@ function falseSubmit(event){
     event.preventDefault();
 }
 function add(event){
-    if (add_remove.value <20){
+    if (add_remove.value < 20){
         falseSubmit(event);
         add_remove.value ++;
         let x = document.getElementById("total");
@@ -23,10 +23,14 @@ function add(event){
         x_format += p_format
         format = x_format.toFixed(2);
         x.value = format
+  
+}
+    else{
+        falseSubmit(event);
     }
 }
 function remove(event){
-    if (add_remove.value > 0){
+    if (add_remove.value > 1){
         falseSubmit(event);
         add_remove.value --;
         let x = document.getElementById("total");
@@ -36,6 +40,9 @@ function remove(event){
         x_format -= p_format
         format = x_format.toFixed(2);
         x.value = format
+    }
+    else{
+        falseSubmit(event);
     }
     
 }
