@@ -42,7 +42,6 @@
     <button></button>
 </form>
 <button>xagas</button>
-<div>
 <aside id="aside">
     <form id="form" action="{%url 'platform'%}" method ="post">
         {% csrf_token %}
@@ -55,7 +54,6 @@
         <input id="total" readonly name="total_cart" type="number" value ="{{product}}" ></input>
     </form>
 </aside>
-</div>
 
 
     {%endblock%}

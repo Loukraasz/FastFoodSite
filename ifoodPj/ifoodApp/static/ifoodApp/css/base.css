@@ -16,8 +16,10 @@ h1{
   font-family: font;
 }
 body {
-  background-image: url("../img/walp.jpg");
+  background-image: url("../img/walpaper.png");
   display: grid;
+  overflow:hidden;
+  background-repeat:no-repeat;
 }
 form{
   position: relative;
