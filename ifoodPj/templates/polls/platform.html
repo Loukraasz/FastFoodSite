@@ -1,40 +1,88 @@
 {% extends "polls/base.html"%}
 {%block base%}
 {%load static%}
-<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/platform.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/pizza_base.css'%}">
 <script type="text/javascript" src="../static/ifoodApp/javascript/plat.js"></script>
 
 <div id="nav">
     <nav>
-       <ul><a href="{%url 'pizza_doce'%}"> Pizzas Doces </a></li>
-       <ul><a href="{%url 'refrigerantes'%}"> Refrigerantes </a></li>
+       <li><a href="{%url 'pizza_doce'%}"> Pizzas Doces </a></li>
+       <li><a href="{%url 'refrigerantes'%}"> Refrigerantes </a></li>
     </nav>
   </div>
 
-<div class="ing" id="pizza">
-        <img id="pizza" src="{%static 'ifoodApp/img/pizza.jpeg'%}"></img>
-        <a class="ing" id="pizza" onclick="show(aside)">Pizza</a>
-</div>
-
-<div id="temaki" class="ing">
-    <a class="ing" id="temaki" href="{%url 'temaki_salmao'%}">temaki de salmao</a>
-</div>
-
-<div class="ing" id="esfiha">
-    <a class="ing" id="esfiha" href="{%url 'esfiha'%}">esfiha</a>
-</div>
-
-<div class="ing" id="bolo">
-    <a href="{%url 'bolo'%}">bolo de leite ninho</a>
-</div>
-
-<div class="ing" id="sorvete">
-    <a class="ing" id="sorvete" href="{%url 'sorvete'%}">sorvete de baunilha</a>
-</div>
-
-<div class="ing" id="coca">
-    <a class="ing" id="coca" href="{%url 'coca_cola'%}">coca cola</a>
-</div>
+  <div class="ing" id="pizza_1" >
+    <a class="ing" id="pizza_1" onclick="show(aside)">
+        <img id="pizza" src="{%static 'ifoodApp/img/salgadas/alho_poro.jpg'%}"></img>
+        Pizza de Alho Poro
+    </a>
+  </div>
+  <div class="ing" id="pizza_2">
+    <a class="ing" id="pizza_2" onclick="show(aside)">
+        <img id="pizza" src="{%static 'ifoodApp/img/salgadas/brocolis.jpeg'%}"></img>
+        Pizza de Brocolis
+    </a>
+  </div>
+  <div class="ing" id="pizza_3">
+    <a class="ing" id="pizza_3"onclick="show(aside)" >
+        <img id="pizza" src="{%static 'ifoodApp/img/salgadas/calabresa.jpg'%}"></img>
+        Pizza de Calabresa
+    </a>
+  </div>
+  <div class="ing" id="pizza_4">
+    <a class="ing" id="pizza_4"onclick="show(aside)" >
+        <img id="pizza" src="{%static 'ifoodApp/img/salgadas/camarao.jpg'%}"></img>
+        Pizza de Camarao
+    </a>
+  </div>
+  <div class="ing" id="pizza_5">
+    <a class="ing" id="pizza_5" onclick="show(aside)">
+        <img id="pizza" src="{%static 'ifoodApp/img/salgadas/carne_seca.jpg'%}"></img>
+        Pizza de Carne Seca
+    </a>
+  </div>
+  <div class="ing" id="pizza_6">
+    <a class="ing" id="pizza_6" onclick="show(aside)">
+        <img id="pizza" src="{%static 'ifoodApp/img/salgadas/catupiry.jpg'%}"></img>
+        Pizza de Catupiry
+    </a>
+  </div>
+  <div class="ing" id="pizza_7">
+    <a class="ing" id="pizza_7" onclick="show(aside)">
+        <img id="pizza" src="{%static 'ifoodApp/img/salgadas/frango_catupiry.jpg'%}"></img>
+        Pizza de Frango com Catupiry
+    </a>
+  </div>
+  <div class="ing" id="pizza_8">
+    <a class="ing" id="pizza_8" onclick="show(aside)">
+        <img id="pizza" src="{%static 'ifoodApp/img/salgadas/marguerita.jpg'%}"></img>
+        Pizza de Marguerita
+    </a>
+  </div>
+  <div class="ing" id="pizza_9">
+    <a class="ing" id="pizza_9" onclick="show(aside)">
+        <img id="pizza" src="{%static 'ifoodApp/img/salgadas/mussarela.jpg'%}"></img>
+        Pizza de Mussarela
+    </a>
+  </div>
+  <div class="ing" id="pizza_10">
+    <a class="ing" id="pizza_10" onclick="show(aside)">
+        <img id="pizza" src="{%static 'ifoodApp/img/salgadas/peperoni.jpg'%}"></img>
+        Pizza de Pepperoni
+    </a>
+  </div>
+  <div class="ing" id="pizza_11">
+    <a class="ing" id="pizza_11" onclick="show(aside)" >
+        <img id="pizza" src="{%static 'ifoodApp/img/salgadas/portuguesa.jpeg'%}"></img>
+        Pizza de Portuguesa
+    </a>
+  </div>
+  <div class="ing" id="pizza_12">
+    <a class="ing" id="pizza_12" onclick="show(aside)" >
+        <img id="pizza" src="{%static 'ifoodApp/img/salgadas/quatro_queijos.jpg'%}"></img>
+        Pizza de Quatro Queijos
+    </a>
+  </div>
 
 
 <form action="{%url 'platform' %}" method="POST">

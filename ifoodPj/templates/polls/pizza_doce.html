@@ -1,7 +1,7 @@
 {% extends "polls/base.html"%}
 {%block base%}
 {%load static%}
-<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/pizza_doce.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/pizza_base.css'%}">
 <script type="text/javascript" src="../static/ifoodApp/javascript/plat.js"></script>
 <div id="nav">
     <nav>
@@ -10,40 +10,76 @@
     </nav>
   </div>
 
-  <div class="ing" id="a">
-    <a class="ing" id="a" href="{%url 'pizza'%}">
+  <div class="ing" id="pizza_1">
+    <a class="ing" id="pizza_1"onclick="show(aside)" >
         <img id="pizza" src="{%static 'ifoodApp/img/doces/banana_canela.jpg'%}"></img>
         Pizza de Banana com Canela
     </a>
 </div>
-<div class="ing" id="b">
-  <a class="ing" id="b" href="{%url 'pizza'%}">
+<div class="ing" id="pizza_2">
+  <a class="ing" id="pizza_2" onclick="show(aside)" >
       <img id="pizza" src="{%static 'ifoodApp/img/doces/chocolate.jpg'%}"></img>
       Pizza de Chocolate
   </a>
 </div>
-<div class="ing" id="c">
-  <a class="ing" id="c" href="{%url 'pizza'%}">
+<div class="ing" id="pizza_3">
+  <a class="ing" id="pizza_3" onclick="show(aside)">
       <img id="pizza" src="{%static 'ifoodApp/img/doces/prestigio.jpg'%}"></img>
       Pizza de Prestígio
   </a>
 </div>
-<div class="ing" id="d">
-  <a class="ing" id="d" href="{%url 'pizza'%}">
+<div class="ing" id="pizza_4">
+  <a class="ing" id="pizza_4"onclick="show(aside)">
       <img id="pizza" src="{%static 'ifoodApp/img/doces/morango.jpg'%}"></img>
       Pizza de Sensação
   </a>
 </div>
-<div class="ing" id="e">
-  <a class="ing" id="e" href="{%url 'pizza'%}">
+<div class="ing" id="pizza_5">
+  <a class="ing" id="pizza_5" onclick="show(aside)">
       <img id="pizza" src="{%static 'ifoodApp/img/doces/beijinho.jpg'%}"></img>
       Pizza de Beijinho
   </a>
 </div>
-<div class="ing" id="f">
-  <a class="ing" id="f" href="{%url 'pizza'%}">
+<div class="ing" id="pizza_6">
+  <a class="ing" id="pizza_6" onclick="show(aside)">
       <img id="pizza" src="{%static 'ifoodApp/img/doces/pacoca.jpeg'%}"></img>
       Pizza de Paçoca
+  </a>
+</div>
+<div class="ing" id="pizza_7">
+  <a class="ing" id="pizza_7" onclick="show(aside)">
+      <img id="pizza" src="{%static 'ifoodApp/img/doces/dois_amores.jpg'%}"></img>
+      Pizza Dois Amores
+  </a>
+</div>
+<div class="ing" id="pizza_8">
+  <a class="ing" id="pizza_8" onclick="show(aside)">
+      <img id="pizza" src="{%static 'ifoodApp/img/doces/ninho.jpg'%}"></img>
+      Pizza de Ninho com Morango
+  </a>
+</div>
+<div class="ing" id="pizza_9">
+  <a class="ing" id="pizza_9" onclick="show(aside)">
+      <img id="pizza" src="{%static 'ifoodApp/img/doces/nutella.jpg'%}"></img>
+      Pizza de Nutella com Castanhas
+  </a>
+</div>
+<div class="ing" id="pizza_10">
+  <a class="ing" id="pizza_10" onclick="show(aside)">
+      <img id="pizza" src="{%static 'ifoodApp/img/doces/brigadeiro.jpeg'%}"></img>
+      Pizza de Brigadeiro
+  </a>
+</div>
+<div class="ing" id="pizza_11">
+  <a class="ing" id="pizza_11" onclick="show(aside)">
+      <img id="pizza" src="{%static 'ifoodApp/img/doces/doce_leite.jpg'%}"></img>
+      Pizza de Doce De Leite
+  </a>
+</div>
+<div class="ing" id="pizza_12">
+  <a class="ing" id="pizza_12" onclick="show(aside)">
+      <img id="pizza" src="{%static 'ifoodApp/img/doces/sorvete.jpg'%}"></img>
+      Pizza de Sorvete de Baunilha
   </a>
 </div>
 <aside id="aside">
