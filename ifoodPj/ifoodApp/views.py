@@ -183,8 +183,8 @@ def pizza_doce(request):
     return render(request , "polls/pizza_doce.html")
 
 
-def refrigerantes(request):
-    return render(request , "polls/refrigerantes.html")
+def bebidas(request):
+    return render(request , "polls/bebidas.html")
 
 def pizza(request):
     if request.method == "GET":
