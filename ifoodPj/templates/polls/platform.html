@@ -12,73 +12,73 @@
   </div>
 
   <div class="ing" id="pizza_1" >
-    <a class="ing" id="pizza_1" onclick="show(aside)">
+    <a class="ing" id="8" onclick="show(aside,this)">
         <img id="pizza" src="{%static 'ifoodApp/img/salgadas/alho_poro.jpg'%}"></img>
         Pizza de Alho Poro
     </a>
   </div>
   <div class="ing" id="pizza_2">
-    <a class="ing" id="pizza_2" onclick="show(aside)">
+    <a class="ing" id="9" onclick="show(aside,this)">
         <img id="pizza" src="{%static 'ifoodApp/img/salgadas/brocolis.jpeg'%}"></img>
         Pizza de Brocolis
     </a>
   </div>
   <div class="ing" id="pizza_3">
-    <a class="ing" id="pizza_3"onclick="show(aside)" >
+    <a class="ing" id="10"onclick="show(aside,this)" >
         <img id="pizza" src="{%static 'ifoodApp/img/salgadas/calabresa.jpg'%}"></img>
         Pizza de Calabresa
     </a>
   </div>
   <div class="ing" id="pizza_4">
-    <a class="ing" id="pizza_4"onclick="show(aside)" >
+    <a class="ing" id="11"onclick="show(aside,this)" >
         <img id="pizza" src="{%static 'ifoodApp/img/salgadas/camarao.jpg'%}"></img>
         Pizza de Camarao
     </a>
   </div>
   <div class="ing" id="pizza_5">
-    <a class="ing" id="pizza_5" onclick="show(aside)">
+    <a class="ing" id="12" onclick="show(aside,this)">
         <img id="pizza" src="{%static 'ifoodApp/img/salgadas/carne_seca.jpg'%}"></img>
         Pizza de Carne Seca
     </a>
   </div>
   <div class="ing" id="pizza_6">
-    <a class="ing" id="pizza_6" onclick="show(aside)">
+    <a class="ing" id="13" onclick="show(aside,this)">
         <img id="pizza" src="{%static 'ifoodApp/img/salgadas/catupiry.jpg'%}"></img>
         Pizza de Catupiry
     </a>
   </div>
   <div class="ing" id="pizza_7">
-    <a class="ing" id="pizza_7" onclick="show(aside)">
+    <a class="ing" id="14" onclick="show(aside,this)">
         <img id="pizza" src="{%static 'ifoodApp/img/salgadas/frango_catupiry.jpg'%}"></img>
         Pizza de Frango com Catupiry
     </a>
   </div>
   <div class="ing" id="pizza_8">
-    <a class="ing" id="pizza_8" onclick="show(aside)">
+    <a class="ing" id="15" onclick="show(aside,this)">
         <img id="pizza" src="{%static 'ifoodApp/img/salgadas/marguerita.jpg'%}"></img>
         Pizza de Marguerita
     </a>
   </div>
   <div class="ing" id="pizza_9">
-    <a class="ing" id="pizza_9" onclick="show(aside)">
+    <a class="ing" id="16" onclick="show(aside,this)">
         <img id="pizza" src="{%static 'ifoodApp/img/salgadas/mussarela.jpg'%}"></img>
         Pizza de Mussarela
     </a>
   </div>
   <div class="ing" id="pizza_10">
-    <a class="ing" id="pizza_10" onclick="show(aside)">
+    <a class="ing" id="17" onclick="show(aside,this)">
         <img id="pizza" src="{%static 'ifoodApp/img/salgadas/peperoni.jpg'%}"></img>
         Pizza de Pepperoni
     </a>
   </div>
   <div class="ing" id="pizza_11">
-    <a class="ing" id="pizza_11" onclick="show(aside)" >
+    <a class="ing" id="18" onclick="show(aside,this)" >
         <img id="pizza" src="{%static 'ifoodApp/img/salgadas/portuguesa.jpeg'%}"></img>
         Pizza de Portuguesa
     </a>
   </div>
   <div class="ing" id="pizza_12">
-    <a class="ing" id="pizza_12" onclick="show(aside)" >
+    <a class="ing" id="19" onclick="show(aside,this)" >
         <img id="pizza" src="{%static 'ifoodApp/img/salgadas/quatro_queijos.jpg'%}"></img>
         Pizza de Quatro Queijos
     </a>
@@ -95,6 +95,7 @@
         {% csrf_token %}
         <button type="submit" id="back" onclick="hideAside(event);"></button>
         <button type="submit" id="A" class="add_remove" onclick= "remove(event);"></button>
+        <input readonly value="" name="id_prod" id="product"></input>
         <label id="price">{{product}}</label>
         <button type="submit" id="B" class="add_remove" onclick="add(event);"></button>
         <button id="add_cart">Adicionar ao carrinho</button>

@@ -134,6 +134,7 @@ def revisar_pedido(request):
 
 def platform(request):
     if request.method == "GET":
+        
         relogin = "para continuar faca o login novamente"
         relog = {"relogin":relogin}
         userP = request.COOKIES.get("sessionid")
@@ -172,12 +173,12 @@ def platform(request):
                                                                  "quants":list_quant, "total":cart.total})
       
     else:
-        userP = request.COOKIES.get("sessionid")
-        logUser = User.objects.get(sessionId=userP)
-        logUser.sessionId = None
-        logUser.save()
-        print("terste")
-        return render(request, "polls/index.html")
+        product_id = request.POST.get("id_prod")
+        print(product_id)
+        print("sssss")
+        product = Produto.objects.get(id=product_id)
+        print(product.nome)
+        return render(request, "polls/platform.html")
     
 def pizza_doce(request):
     return render(request , "polls/pizza_doce.html")

@@ -1,6 +1,8 @@
-function show(aside){
+function show(aside,element){
     aside.style.display = "flex";
-    
+    console.log(element.id)
+    product.value = element.id
+
     }
 function hideAside(event){
     if (aside.style.display == "flex"){
