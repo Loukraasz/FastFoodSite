@@ -134,6 +134,12 @@ def revisar_pedido(request):
 
 def platform(request):
     if request.method == "GET":
+        list_pizza = []
+        counter = 8
+        while counter < 19:
+            pizza = Produto.objects.get(id=counter).valor
+            list_pizza.append(pizza)
+            counter+=1
         
         relogin = "para continuar faca o login novamente"
         relog = {"relogin":relogin}
@@ -154,6 +160,7 @@ def platform(request):
                 usuario_id = usuario.id
                 cart = Cart.objects.get(cliente_id = usuario_id)
             except ObjectDoesNotExist:
+                print("s")
                 return render(request, "polls/platform.html")
             info = Info.objects.filter(carrinho=cart.id).values("produto", "quantidade","total_p")
             counter = 0
@@ -173,12 +180,11 @@ def platform(request):
                                                                  "quants":list_quant, "total":cart.total})
       
     else:
-        product_id = request.POST.get("id_prod")
-        print(product_id)
-        print("sssss")
+        product_id = request.POST.get("id_prod")   
         product = Produto.objects.get(id=product_id)
-        print(product.nome)
-        return render(request, "polls/platform.html")
+        print(product.valor)
+        prod = {"product":product.valor}
+        return render(request, "polls/platform.html",context=prod)
     
 def pizza_doce(request):
     return render(request , "polls/pizza_doce.html")
