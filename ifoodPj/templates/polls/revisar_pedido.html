@@ -1,0 +1,51 @@
+{% extends "polls/base.html"%}
+{%block base%}
+{%load static%}
+        <script type="text/javascript" src="../static/ifoodApp/javascript/revisao.js"></script>
+        <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/revisao.css'%}">
+        <body>
+    <table id="a">
+        <td>Produto</td>
+    {%for product in products%}
+        <tr>
+            <td class="product"> {{product}} </td>
+        </tr>
+{%endfor%}
+    </table>
+    <table id="b">
+        <td>Quantidade</td>
+{%for quant in quants%}
+    <tr id="teste">
+        <td class="quant"> {{quant}} </td>
+    </tr>
+{%endfor%}
+    </table>
+    <table id="c">
+        <td>Total</td>
+{%for price in prices%}
+<tr>
+    <td class="price">{{price}}</td>
+</tr>
+{%endfor%}
+</table>
+<label id="total">R${{total}}</label>
+
+<div>
+    <div id="pay">
+    <Label>Forma De Pagamento</Label>
+    <select id="pag" onchange="teste()">
+        <option>Pix</option>
+        <option>Credito</option>
+        <option>Debito</option>
+    </select>
+    <img id="img" src="{%static 'ifoodApp/img/pix.jpg'%}"></img>
+</div>
+<textarea placeholder="Observacoes" rows="2" cols="30" id="obs"></textarea>
+<form action="{%url 'revisar_pedido' %}" method="POST" return false;>
+    {%csrf_token%}
+    <a href="{%url 'platform'%}" id="continue">Continuar comprando?</a>
+</form>
+<button id="confirm" onclick="teste()">Confirmar Pedido</button>
+</div>
+        </body>
+{%endblock%}

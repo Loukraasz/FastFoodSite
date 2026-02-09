@@ -1,0 +1,10 @@
+{% extends "polls/base.html"%}
+{%block base%}
+{%load static%}
+<div id="nav">
+    <nav>
+       <li><a href="{%url 'platform'%}"> Pizzas Salgadas </a></li>
+       <li><a href="{%url 'pizza_doce'%}"> Pizzas Doces </a></li>
+    </nav>
+  </div>
+{%endblock%}

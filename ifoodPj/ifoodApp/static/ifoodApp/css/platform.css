@@ -1,0 +1,103 @@
+aside#aside {
+    display: none;
+    background-color: black;
+    position: absolute;
+    margin-left: 1450px;
+    width: 700px;
+    height: 99%;
+    background-color: rgba(255, 254, 254, 0.1);
+    border-radius: 10px;
+}
+
+a.ing{
+    padding:0px;
+}
+
+div.ing{
+    border-radius:10px;
+    margin-top:10px;
+    margin-left: 300px;
+    width: 200px;
+    background-color: white;
+}
+
+img {
+    border-radius: 5px;
+    width: 200px;
+    height: 200px;
+}
+
+table#a {
+    position: absolute;
+}
+
+table#b {
+    position: absolute;
+    margin-left: 100px;
+}
+
+table#c {
+    position: absolute;
+    margin-left: 210px;
+    margin-bottom: 300px;
+}
+
+label#total {
+    position: absolute;
+    margin-left: 300px;
+    margin-top: 25px;
+}
+
+label#valor {
+    position: absolute;
+    margin-top: 3px;
+    margin-left: 300px;
+
+}
+
+button{
+    position: absolute;
+    margin-top: 500px;
+}
+div#b{
+    position:absolute;
+    margin-left:600px;
+    margin-top:90px;
+}
+div#c{
+    position:absolute;
+    margin-left:900px;
+    margin-top:90px;
+}
+div#d{
+    position:absolute;
+    margin-left:600px;
+    margin-top:400px;
+}
+div#e{
+    position:absolute;
+    margin-left:900px;
+    margin-top:400px;
+}
+div#f{
+    position:absolute;
+    margin-left:300px;
+    margin-top:400px;
+}
+button.add_remove{
+    width:20px;
+    height:20px;
+    color:blue;
+}
+button#A{
+    position:absolute;
+    margin-top:25px;
+    margin-left:20px;
+    
+}
+button#B{
+    position:absolute;
+    margin-top:25px;
+    margin-left:50px;
+    
+}

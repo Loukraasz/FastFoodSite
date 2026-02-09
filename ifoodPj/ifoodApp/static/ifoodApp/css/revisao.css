@@ -1,0 +1,46 @@
+input#id_username{
+    color:black;
+}
+table#a{
+    position:absolute;
+    margin-left:400px;
+    margin-top:10px;
+}
+table#b{
+    position:absolute;
+    margin-left:700px;
+    margin-top:10px;
+}
+table#c{
+    position:absolute;
+    margin-left:1000px;
+    
+}
+label#total{
+    
+}
+button#confirm{
+    position:absolute;
+    margin-left:1480px;
+    margin-top:300px;
+}
+textarea#obs{
+    resize:none;
+    margin-left:1300px;
+    position:absolute;
+    margin-top:200px;
+}
+a#continue{
+    position:absolute;
+    margin-left:1300px;
+    margin-top:300px;
+    
+}
+div#pay{
+    position:absolute;
+    margin-left:1300px;
+}
+img#img{
+    display: none;
+    width: 30%;
+}

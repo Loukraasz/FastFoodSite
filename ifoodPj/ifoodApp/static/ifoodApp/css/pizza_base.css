@@ -1,0 +1,155 @@
+aside#aside {
+    display: none;
+    background-color: black;
+    position: absolute;
+    margin-left: 1280px;
+    width: 600px;
+    height: 99%;
+    background-color: rgba(255, 254, 254, 0.4);
+    border-radius: 10px;
+}
+form#form{
+    position:absolute;
+    margin-left:10px;
+}
+a.ing{
+    padding:0px;
+}
+
+div.ing{
+    border-radius:10px;
+    margin-top:10px;
+    margin-left: 300px;
+    width: 200px;
+    background-color: white;
+}
+
+img {
+    border-radius: 5px;
+    width: 200px;
+    height: 200px;
+}
+
+table#a {
+    position: absolute;
+}
+
+table#b {
+    position: absolute;
+    margin-left: 100px;
+}
+
+table#c {
+    position: absolute;
+    margin-left: 210px;
+    margin-bottom: 300px;
+}
+
+label#total {
+    position: absolute;
+    margin-left: 300px;
+    margin-top: 25px;
+}
+
+label#valor {
+    position: absolute;
+    margin-top: 3px;
+    margin-left: 300px;
+
+}
+
+button{
+    position: absolute;
+    margin-top: 500px;
+}
+div#pizza_1{
+    position:absolute;
+    margin-left:300px;
+    margin-top:90px;
+}
+div#pizza_2{
+    position:absolute;
+    margin-left:600px;
+    margin-top:90px;
+}
+div#pizza_3{
+    position:absolute;
+    margin-left:900px;
+    margin-top:90px;
+}
+div#pizza_4{
+    position:absolute;
+    margin-left:1200px;
+    margin-top:90px;
+}
+div#pizza_5{
+    position:absolute;
+    margin-left:300px;
+    margin-top:400px;
+}
+div#pizza_6{
+    position:absolute;
+    margin-left:600px;
+    margin-top:400px;
+}
+div#pizza_7{
+    position:absolute;
+    margin-left:900px;
+    margin-top:400px;
+}
+div#pizza_8{
+    position:absolute;
+    margin-left:1200px;
+    margin-top:400px;
+}
+div#pizza_9{
+    position:absolute;
+    margin-left:300px;
+    margin-top:700px;
+}
+div#pizza_10{
+    position:absolute;
+    margin-left:600px;
+    margin-top:700px;
+}
+div#pizza_11{
+    position:absolute;
+    margin-left:900px;
+    margin-top:700px;
+}
+div#pizza_12{
+    position:absolute;
+    margin-left:1200px;
+    margin-top:700px;
+}
+label#product{
+    margin-top: 300px;
+}
+input#add_remove{
+    width: 30px;
+    margin-right: 20px;
+}
+button#back{
+    position:absolute;
+    margin-right:30px;
+    margin-top:3px;
+    height:100px;
+    width:30px;
+}
+button.add_remove{
+    width:20px;
+    height:20px;
+    color:blue;
+}
+button#A{
+    position:absolute;
+    margin-top:25px;
+    margin-left:20px;
+    
+}
+button#B{
+    position:absolute;
+    margin-top:25px;
+    margin-left:50px;
+    
+}

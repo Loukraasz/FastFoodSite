@@ -1,0 +1,48 @@
+{% extends "polls/base.html"%}
+{%block base%}
+{%load static%}
+<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/platform.css'%}">
+<div id="nav">
+    <nav>
+       <li><a href="{%url 'platform'%}"> Pizzas Salgadas </a></li>
+       <li><a href="{%url 'refrigerantes'%}"> Refrigerantes </a></li>
+    </nav>
+  </div>
+
+  <div class="ing" id="a">
+    <a class="ing" id="a" href="{%url 'pizza'%}">
+        <img id="pizza" src="{%static 'ifoodApp/img/doces/banana_canela.jpg'%}"></img>
+        Pizza de Banana com Canela
+    </a>
+</div>
+<div class="ing" id="b">
+  <a class="ing" id="b" href="{%url 'pizza'%}">
+      <img id="pizza" src="{%static 'ifoodApp/img/doces/chocolate.jpg'%}"></img>
+      Pizza de Chocolate
+  </a>
+</div>
+<div class="ing" id="c">
+  <a class="ing" id="c" href="{%url 'pizza'%}">
+      <img id="pizza" src="{%static 'ifoodApp/img/doces/prestigio.jpg'%}"></img>
+      Pizza de Prestígio
+  </a>
+</div>
+<div class="ing" id="d">
+  <a class="ing" id="d" href="{%url 'pizza'%}">
+      <img id="pizza" src="{%static 'ifoodApp/img/doces/morango.jpg'%}"></img>
+      Pizza de Sensação
+  </a>
+</div>
+<div class="ing" id="e">
+  <a class="ing" id="e" href="{%url 'pizza'%}">
+      <img id="pizza" src="{%static 'ifoodApp/img/doces/beijinho.jpg'%}"></img>
+      Pizza de Beijinho
+  </a>
+</div>
+<div class="ing" id="f">
+  <a class="ing" id="f" href="{%url 'pizza'%}">
+      <img id="pizza" src="{%static 'ifoodApp/img/doces/pacoca.jpeg'%}"></img>
+      Pizza de Paçoca
+  </a>
+</div>
+{%endblock%}

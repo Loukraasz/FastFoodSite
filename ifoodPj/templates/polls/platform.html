@@ -1,0 +1,56 @@
+{% extends "polls/base.html"%}
+{%block base%}
+{%load static%}
+<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/platform.css'%}">
+<script type="text/javascript" src="../static/ifoodApp/javascript/platform.js"></script>
+
+<div id="nav">
+    <nav>
+       <ul><a href="{%url 'pizza_doce'%}"> Pizzas Doces </a></li>
+       <ul><a href="{%url 'refrigerantes'%}"> Refrigerantes </a></li>
+    </nav>
+  </div>
+
+<div class="ing" id="pizza">
+        <img id="pizza" src="{%static 'ifoodApp/img/pizza.jpeg'%}"></img>
+        <a class="ing" id="pizza" onclick="show(aside)">Pizza</a>
+</div>
+
+<div id="temaki" class="ing">
+    <a class="ing" id="temaki" href="{%url 'temaki_salmao'%}">temaki de salmao</a>
+</div>
+
+<div class="ing" id="esfiha">
+    <a class="ing" id="esfiha" href="{%url 'esfiha'%}">esfiha</a>
+</div>
+
+<div class="ing" id="bolo">
+    <a href="{%url 'bolo'%}">bolo de leite ninho</a>
+</div>
+
+<div class="ing" id="sorvete">
+    <a class="ing" id="sorvete" href="{%url 'sorvete'%}">sorvete de baunilha</a>
+</div>
+
+<div class="ing" id="coca">
+    <a class="ing" id="coca" href="{%url 'coca_cola'%}">coca cola</a>
+</div>
+
+
+<form action="{%url 'platform' %}" method="POST">
+    {% csrf_token %}
+    <button></button>
+</form>
+<button>xagas</button>
+<aside id="aside">
+    <form action="{%url 'pizza'%}" method ="POST">
+        {% csrf_token %}
+        <button id="A" class="add_remove" onclick= "remove(); "></button>
+        <label id="price">{{product}}</label>
+        <button id="B" class="add_remove" onclick="add()"></button>
+        <input name="quant" id ="add_remove" type="number" value=1 min=1 max=20 readonly></input>
+        <input id="total" readonly name="total_cart" type="number" value ="{{product}}" ></input>
+        <button>Adicionar ao carrinho</button>
+    </form>
+</aside>
+    {%endblock%}
