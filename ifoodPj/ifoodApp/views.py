@@ -37,6 +37,22 @@ def cad(request):
         return render(request, "polls/cad.html", {"user": user, "endereco":endereco})
     if request.method == "POST":
         username = request.POST.get("username") 
+        password = request.POST.get("password") 
+        email = request.POST.get("email")
+        phone = request.POST.get("phoneNumber") 
+        rua = request.POST.get("rua") 
+        numero = request.POST.get("numero") 
+        complemento = request.POST.get("complemento") 
+        cidade = request.POST.get("cidade") 
+        bairro = request.POST.get("bairro")
+        fill = {'fill':"preencha todos os campos obrigatorios!"}
+        if username == "" or password == "" or email == "" or phone == "" or rua == "" or numero == "" or cidade == "" or bairro == "":
+            pass_count = len(password)
+            if pass_count < 8:
+                user = NameForm(request.POST)
+                endereco = EnderecoForm(request.POST)
+                return render(request, "polls/cad.html", {"user": user, "endereco":endereco, "fill":fill["fill"], "pass":"Senha deve ter no minimo 8 caracteres"})
+            return render(request, "polls/cad.html", {"user": user, "endereco":endereco, "fill":fill["fill"]})
         user = NameForm(request.POST)
         endereco = EnderecoForm(request.POST)
         if user.is_valid() and endereco.is_valid():
@@ -78,15 +94,13 @@ def password_change(request):
     np = request.POST.get("password")
     npc = request.POST.get("conf_password")
     if np == npc and np != None and npc != None:
-        
-        print(email_user.email)
         email_user.password = npc
         email_user.save()
         ok_pass = {"ok_pass":"senha alterada com sucesso"}
         return render(request, "polls/index.html", context=ok_pass)
     else:
-        return HttpResponse("paia")
-        
+        wrong_pass = {"wrong_pass":"senhas não coincidem"}
+        return render(request, "polls/password_change.html", context=wrong_pass)
     
 def pedido(request):
     if request.method == "GET":

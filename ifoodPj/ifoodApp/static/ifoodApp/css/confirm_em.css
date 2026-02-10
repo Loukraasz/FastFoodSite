@@ -25,3 +25,8 @@ button{
     margin-left: 15%;
     display: grid;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

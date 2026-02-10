@@ -1,0 +1,36 @@
+input{
+  font-size:40px;
+  width:50%;
+}
+.field .line{
+  width:50%;
+}
+input#id_numero::-webkit-inner-spin-button,
+input#id_numero::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input#id_phoneNumber::-webkit-inner-spin-button,
+input#id_phoneNumber::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+label#fill{
+  display: block;
+}
+label{
+    color: red;
+    font-family: font;
+    font-size: 40px;
+}
+label#pass{
+  display: none;
+}
+label#pass_count{
+  display: block;
+}
+label.pass{
+  position:absolute;
+  margin-left:51%;
+  margin-top:2%;
+}

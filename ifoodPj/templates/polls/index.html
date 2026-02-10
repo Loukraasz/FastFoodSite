@@ -3,18 +3,19 @@
 {%load static%}
 <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/index.css'%}">
 <form id="form"action="{%url 'index' %}" method="POST">
-  {{ok_pass}}
-    {{relogin}}
-    {% csrf_token %}
-    <div class="field">
-        <input type="text" name="lEmail" autocomplete="off" id="username" placeholder="Email"/>
-        <div class="line"></div>
+  <label>{{ok_pass}}</label>
+  <label>{{relogin}}</label>
+  {% csrf_token %}
+  <div class="field">
+      <input type="text" name="lEmail" autocomplete="off" id="username" placeholder="Email"/>
+      <div class="line"></div>
       </div>
       <div class="field">
         <input name="lPassword"id="password" type="password" placeholder="Senha"/>
         <div class="line"></div>
       </div>
-      <a href="{%url 'rec_password' %}">Esqueceu sua senha?</a>
+      <a id="rec"href="{%url 'rec_password' %}">Esqueceu sua senha?</a>
+      <a id="cad" href="{%url 'cad' %}">Cadastrar-se</a>
       <div class="buttons">
         <button class="blob-btn">
           Login

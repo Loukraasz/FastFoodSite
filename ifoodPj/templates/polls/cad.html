@@ -1,11 +1,22 @@
+{% extends "polls/base.html" %}
+{%block base%}
 {%load static%}
-<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/base.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/cad.css'%}">
+<script type="text/javascript" src="{%static 'ifoodApp/javascript/cad.js'%}"></script>
 <form action="{%url 'cad' %}" method="POST">
     {% csrf_token %}
 
 <div class="field">
     {% for field in user %}
     <div class="field">
+      {%if field.id_for_label == "id_password" %}
+        <label class="pass" id="pass_count" for="{{field.id_for_label}}">{{pass}}</label>
+        <label class="pass" id="pass" for="{{field.id_for_label}}">Minimo de 8 Caracteres</label>
+        {% endif %}
+        {%if field.id_for_label == "id_email" %}
+        <label class="pass" id="pass_count" for="{{field.id_for_label}}">{{pass}}</label>
+        <label class="pass" id="pass" for="{{field.id_for_label}}">Email Invalido</label>
+        {% endif %}
       {{ field }}
       <div class="line"></div>
     </div>
@@ -18,6 +29,7 @@
       <div class="line"></div>
     </div>
   {% endfor %}
+  <label id="fill">{{ fill }}</label>
 
     <div class="buttons">
         <button class="blob-btn">
@@ -43,3 +55,4 @@
       </svg>
 
 </form>
+{%endblock%}

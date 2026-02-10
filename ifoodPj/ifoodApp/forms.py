@@ -10,10 +10,10 @@ class NameForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ["username","password","email","phoneNumber"]
-        widgets = { 'username': forms.TextInput(attrs={'placeholder': 'Username'}),
-            'password': forms.PasswordInput(attrs={'placeholder': 'Senha'}),
-            'email': forms.TextInput(attrs={'placeholder': 'Email'}),
-            'phoneNumber': forms.NumberInput(attrs={'placeholder': 'Numero de telefone'}),
+        widgets = { 'username': forms.TextInput(attrs={'placeholder': 'Username', 'autocomplete': 'off',"oninput":"cad()"}),
+            'password': forms.PasswordInput(attrs={'placeholder': 'Senha', 'autocomplete': 'off',"oninput":"pass()","onclick":"passError()"}),
+            'email': forms.TextInput(attrs={'placeholder': 'Email', 'autocomplete': 'off'}),
+            'phoneNumber': forms.NumberInput(attrs={'placeholder': 'Numero de telefone', 'autocomplete': 'off'}),
 }
         required = ["username","password","email","phoneNumber"]
 class EnderecoForm(forms.ModelForm):
@@ -27,11 +27,11 @@ class EnderecoForm(forms.ModelForm):
         model = Endereco
         fields = ["rua","numero","complemento","cidade","bairro"]
         required = ["rua","numero","complemento","cidade","bairro"]
-        widgets = { 'rua': forms.TextInput(attrs={'placeholder': 'Digite o nome da rua'}),
-            'numero': forms.NumberInput(attrs={'placeholder': 'Número'}),
-            'complemento': forms.TextInput(attrs={'placeholder': 'Complemento (opcional)'}),
-            'bairro': forms.TextInput(attrs={'placeholder': 'Bairro'}),
-            'cidade': forms.TextInput(attrs={'placeholder': 'Cidade'})}   
+        widgets = { 'rua': forms.TextInput(attrs={'placeholder': 'Digite o nome da rua', 'autocomplete': 'off'}),
+            'numero': forms.NumberInput(attrs={'placeholder': 'Número', 'autocomplete': 'off'}),
+            'complemento': forms.TextInput(attrs={'placeholder': 'Complemento (opcional)', 'autocomplete': 'off'}),
+            'bairro': forms.TextInput(attrs={'placeholder': 'Bairro', 'autocomplete': 'off'}),
+            'cidade': forms.TextInput(attrs={'placeholder': 'Cidade', 'autocomplete': 'off'})}   
 
         
  

@@ -5,13 +5,13 @@ input{
     
 }
 div.field{
-    margin-left:25%;
+    margin-left:15%;
 }
 .field .line{
-    width:70%
+    width:60%
 }
 label{
-    margin-left:25%;
+    margin-left:15%;
     color: white;
     font-family: font;
     font-size: 40px;
@@ -20,8 +20,8 @@ button{
     border-radius: 20px;
     font-size: 20px;
     font-family: font;
-    width: 150px;
+    width: 190px;
     height: 75px;
-    margin-left: 56%;
+    margin-left: 15%;
     display: grid;
 }
