@@ -2,12 +2,15 @@
 {%block base%}
 {%load static%}
 <link rel="stylesheet" type="text/css" href="{%static 'ifoodApp/css/index.css'%}">
+<script type="text/javascript" src="{%static 'ifoodApp/javascript/index.js'%}"></script>
 <form id="form"action="{%url 'index' %}" method="POST">
   <label>{{ok_pass}}</label>
   <label>{{relogin}}</label>
   {% csrf_token %}
   <div class="field">
-      <input type="text" name="lEmail" autocomplete="off" id="username" placeholder="Email"/>
+    <label name="lError" for="username"id="error">{{error}}</label>
+      <input type="text" name="lEmail" autocomplete="off" id="username" placeholder="Email" onclick="cad()"/>
+      
       <div class="line"></div>
       </div>
       <div class="field">
@@ -16,6 +19,7 @@
       </div>
       <a id="rec"href="{%url 'rec_password' %}">Esqueceu sua senha?</a>
       <a id="cad" href="{%url 'cad' %}">Cadastrar-se</a>
+      
       <div class="buttons">
         <button class="blob-btn">
           Login
@@ -39,5 +43,6 @@
         </defs>
       </svg>
 </form>
+
 </body>
 {%endblock%}

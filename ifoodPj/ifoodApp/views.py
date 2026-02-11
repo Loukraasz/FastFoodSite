@@ -26,8 +26,11 @@ def index(request):
                 user.sessionId = session
                 user.save()
                 return redirect('platform')
+            else:
+                return render(request, "polls/index.html", {"error":"Email ou senha incorretos"})
     except ObjectDoesNotExist:
-            return HttpResponse("usuario nao existe")
+        return render(request, "polls/index.html", {"error":"Email ou senha incorretos"})
+    return render(request, "polls/index.html", {"error":"Email ou senha incorretos"})
         
 
 def cad(request):
@@ -47,24 +50,27 @@ def cad(request):
         bairro = request.POST.get("bairro")
         fill = {'fill':"preencha todos os campos obrigatorios!"}
         if username == "" or password == "" or email == "" or phone == "" or rua == "" or numero == "" or cidade == "" or bairro == "":
-            pass_count = len(password)
-            if pass_count < 8:
-                user = NameForm(request.POST)
-                endereco = EnderecoForm(request.POST)
-                return render(request, "polls/cad.html", {"user": user, "endereco":endereco, "fill":fill["fill"], "pass":"Senha deve ter no minimo 8 caracteres"})
+            user = NameForm(request.POST)
+            endereco = EnderecoForm(request.POST)
             return render(request, "polls/cad.html", {"user": user, "endereco":endereco, "fill":fill["fill"]})
+        pass_count = len(password)
+        if pass_count < 8:
+            user = NameForm(request.POST)
+            endereco = EnderecoForm(request.POST)
+            return render(request, "polls/cad.html", {"user": user, "endereco":endereco, "pass":"Senha deve ter no minimo 8 caracteres"})
         user = NameForm(request.POST)
         endereco = EnderecoForm(request.POST)
         if user.is_valid() and endereco.is_valid():
-            user_exist = User.objects.filter(username=username).first()
+            user_exist = User.objects.filter(email=email).first()
             if user_exist:
-                return HttpResponse("usuario ja existe")
+                return render(request, "polls/cad.html", {"user": user, "endereco":endereco, "emailCad":"Email já cadastrado"})
             end_id = endereco.save()
             adress = user.save(commit=False)
             adress.adress_id = end_id.id
             adress.save()
             end_id.save()
             return redirect("index")
+        return render(request, "polls/cad.html", {"user": user, "endereco":endereco, "email":"Email Invalido"})
        
 
 

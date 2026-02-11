@@ -37,3 +37,9 @@ a {
 a#cad{
   margin-left:480px;
 }
+label#error{
+  display: inline;
+  color: red;
+  font-family: font;
+  font-size: 30px;
+}

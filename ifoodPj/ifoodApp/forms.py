@@ -10,9 +10,9 @@ class NameForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ["username","password","email","phoneNumber"]
-        widgets = { 'username': forms.TextInput(attrs={'placeholder': 'Username', 'autocomplete': 'off',"oninput":"cad()"}),
-            'password': forms.PasswordInput(attrs={'placeholder': 'Senha', 'autocomplete': 'off',"oninput":"pass()","onclick":"passError()"}),
-            'email': forms.TextInput(attrs={'placeholder': 'Email', 'autocomplete': 'off'}),
+        widgets = { 'username': forms.TextInput(attrs={'placeholder': 'Nome', 'autocomplete': 'off',"oninput":"cad()"}),
+            'password': forms.PasswordInput(attrs={'placeholder': 'Senha', 'autocomplete': 'off',"oninput":"passwordCheck()","onclick":"remove('pass_count','id_password','Senha')"}),
+            'email': forms.TextInput(attrs={'placeholder': 'Email', 'autocomplete': 'off',"oninput":"emailValidate()", "onclick":"remove('email','id_email','Email')"}),
             'phoneNumber': forms.NumberInput(attrs={'placeholder': 'Numero de telefone', 'autocomplete': 'off'}),
 }
         required = ["username","password","email","phoneNumber"]
